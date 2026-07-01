@@ -1,0 +1,268 @@
+/* -- Base & Reset -- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background-color: #e5e5e5;
+  color: #111827;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* -- Layout Container -- */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #f4f5fa;
+  width: 100%;
+}
+
+/* Desktop Responsiveness */
+@media (min-width: 600px) {
+  .app-container {
+    max-width: 414px; /* Standard mobile width */
+    margin: 0 auto;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border-left: 1px solid #d1d5db;
+    border-right: 1px solid #d1d5db;
+  }
+}
+
+/* -- Header -- */
+.top-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #eaeaea;
+}
+
+.icon-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+}
+
+.page-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #0047FF;
+}
+
+.text-btn {
+  background: none;
+  border: none;
+  color: #0047FF;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+/* -- Main Content -- */
+.content {
+  flex: 1;
+  padding: 24px 20px;
+  overflow-y: auto;
+}
+
+/* -- Status Badge -- */
+.status-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.status-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #0047FF;
+  color: #ffffff;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.status-dot {
+  width: 6px;
+  height: 6px;
+  background-color: #ffffff;
+  border-radius: 50%;
+}
+
+/* -- QR Card -- */
+.qr-card {
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 32px 20px;
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.qr-wrapper {
+  display: inline-block;
+  border: 3px solid #0047FF;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 20px;
+  background-color: #fafafa;
+}
+
+.qr-img {
+  width: 120px;
+  height: 120px;
+  display: block;
+}
+
+.qr-title {
+  font-size: 13px;
+  color: #4b5563;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.qr-desc {
+  font-size: 14px;
+  color: #111827;
+  line-height: 1.5;
+  max-width: 250px;
+  margin: 0 auto;
+}
+
+/* -- Details Section -- */
+.details-section {
+  margin-bottom: 24px;
+}
+
+.label {
+  font-size: 11px;
+  color: #4b5563;
+  margin-bottom: 6px;
+  letter-spacing: 0.2px;
+}
+
+.bold-value {
+  font-size: 16px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.divider {
+  border: none;
+  border-top: 1px solid #d1d5db;
+  margin: 16px 0;
+}
+
+.flex-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.amount-value {
+  font-size: 36px;
+  font-weight: 700;
+  color: #0047FF;
+  line-height: 1.1;
+}
+
+/* -- Info Section -- */
+.info-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.timer-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #edeef6;
+  border: 1px solid #dbdeed;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.timer-left {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.hourglass-icon {
+  width: 20px;
+  height: 20px;
+  margin-top: 2px;
+}
+
+.highlight-time {
+  font-size: 16px;
+  font-weight: 600;
+  color: #0047FF;
+  letter-spacing: 1px;
+}
+
+.timer-right {
+  text-align: right;
+}
+
+.dark-value {
+  font-size: 14px;
+  color: #111827;
+}
+
+.row-cards {
+  display: flex;
+  gap: 12px;
+}
+
+.small-card {
+  flex: 1;
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+/* -- Bottom Navigation -- */
+.bottom-nav {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #ffffff;
+  padding: 12px 0 24px; 
+  border-top: 1px solid #e5e7eb;
+  position: sticky;
+  bottom: 0;
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: none;
+  color: #4b5563;
+  cursor: pointer;
+}
+
+.nav-item svg {
+  width: 22px;
+  height: 22px;
+}
+
+.nav-item span {
+  font-size: 11px;
+  font-weight: 500;
+}

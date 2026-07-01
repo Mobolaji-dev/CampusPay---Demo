@@ -1,0 +1,239 @@
+/* -- Base & Reset -- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background-color: #e5e5e5;
+  color: #111827;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* -- Layout Container -- */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #ffffff;
+  width: 100%;
+}
+
+/* Desktop Responsiveness */
+@media (min-width: 600px) {
+  .app-container {
+    max-width: 414px; 
+    margin: 0 auto;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border-left: 1px solid #d1d5db;
+    border-right: 1px solid #d1d5db;
+  }
+}
+
+/* -- Header -- */
+.top-nav {
+  display: flex;
+  align-items: center;
+  padding: 24px 20px 16px;
+  background-color: #ffffff;
+}
+
+.icon-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-left: -4px;
+}
+
+.icon-btn svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* -- Main Content -- */
+.content {
+  flex: 1;
+  padding: 16px 24px 40px;
+  overflow-y: auto;
+}
+
+/* -- Profile Header -- */
+.profile-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.avatar-wrapper {
+  position: relative;
+  width: 104px;
+  height: 104px;
+  margin: 0 auto 16px;
+  border: 2px solid #0047FF;
+  border-radius: 50%;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.avatar-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  background-color: #f3f4f6;
+}
+
+.status-badge {
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  width: 26px;
+  height: 26px;
+  background-color: #003BCC;
+  border: 4px solid #ffffff;
+  border-radius: 50%;
+}
+
+.profile-name {
+  font-size: 28px;
+  font-weight: 700;
+  color: #111827;
+  letter-spacing: -0.5px;
+  margin-bottom: 6px;
+}
+
+.profile-status {
+  font-size: 15px;
+  font-weight: 600;
+  color: #003BCC;
+}
+
+/* -- Contact Section -- */
+.contact-section {
+  margin-bottom: 40px;
+}
+
+.section-title {
+  font-size: 13px;
+  font-weight: 500;
+  color: #4b5563;
+  letter-spacing: 0.5px;
+  margin-bottom: 20px;
+}
+
+.info-group {
+  margin: 16px 0;
+}
+
+.info-label {
+  font-size: 13px;
+  color: #4b5563;
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+
+.info-value {
+  font-size: 18px;
+  color: #111827;
+  font-weight: 400;
+}
+
+/* -- Menu List -- */
+.menu-list {
+  margin-bottom: 48px;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 0;
+  text-decoration: none;
+  color: #111827;
+  transition: opacity 0.2s;
+}
+
+.menu-item:active {
+  opacity: 0.7;
+}
+
+.menu-item-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.menu-icon {
+  width: 24px;
+  height: 24px;
+}
+
+.menu-text {
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.chevron {
+  color: #cbd5e1;
+  width: 20px;
+  height: 20px;
+}
+
+/* -- Shared Utilities -- */
+.divider {
+  border: none;
+  border-top: 1px solid #e2e8f0;
+  margin: 0;
+}
+
+/* -- Actions Section -- */
+.actions-section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.btn {
+  width: 100%;
+  padding: 16px;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.2s;
+}
+
+.btn:active {
+  opacity: 0.8;
+}
+
+.btn-primary {
+  background-color: #003BCC;
+  color: #ffffff;
+  border: none;
+  box-shadow: 0 4px 14px rgba(0, 59, 204, 0.2);
+}
+
+.btn-logout {
+  background-color: transparent;
+  color: #374151;
+  border: none;
+  gap: 12px;
+}
+
+.logout-icon {
+  width: 22px;
+  height: 22px;
+  color: #4b5563;
+}

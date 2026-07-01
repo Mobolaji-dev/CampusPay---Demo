@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Profile</title>
+  <link rel="stylesheet" href="styles.css/profile.css">
+</head>
+<body>
+
+  <div class="app-container">
+    
+    <header class="top-nav">
+      <button class="icon-btn back-btn" aria-label="Go back">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#0047FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="19" y1="12" x2="5" y2="12"></line>
+          <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+      </button>
+    </header>
+
+    <main class="content">
+      
+      <section class="profile-header">
+        <div class="avatar-wrapper">
+          <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=200&q=80" alt="Adebayo Chen" class="avatar-img">
+          <div class="status-badge"></div>
+        </div>
+        <h1 class="profile-name">Adebayo Chen</h1>
+        <p class="profile-status">Verified Student</p>
+      </section>
+
+      <section class="contact-section">
+        <h2 class="section-title">CONTACT INFORMATION</h2>
+        
+        <div class="info-group">
+          <p class="info-label">Email</p>
+          <p class="info-value">adebayo.chen@unilag.edu.ng</p>
+        </div>
+        
+        <hr class="divider">
+        
+        <div class="info-group">
+          <p class="info-label">Phone Number</p>
+          <p class="info-value">+234 812 345 6789</p>
+        </div>
+      </section>
+
+      <section class="menu-list">
+        
+        <a href="#" class="menu-item">
+          <div class="menu-item-left">
+            <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="#003BCC" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"></path>
+              <path d="M3 5v14a2 2 0 0 0 2 2h16v-5"></path>
+              <path d="M18 12a2 2 0 0 0 0 4h4v-4Z"></path>
+            </svg>
+            <span class="menu-text">My Wallet</span>
+          </div>
+          <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </a>
+        
+        <hr class="divider">
+        
+        <a href="#" class="menu-item">
+          <div class="menu-item-left">
+            <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="#003BCC" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+            </svg>
+            <span class="menu-text">Saved Items</span>
+          </div>
+          <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </a>
+        
+        <hr class="divider">
+        
+        <a href="#" class="menu-item">
+          <div class="menu-item-left">
+            <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="#003BCC" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+            </svg>
+            <span class="menu-text">Security Settings</span>
+          </div>
+          <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </a>
+        
+        <hr class="divider">
+      </section>
+
+      <section class="actions-section">
+        <button class="btn btn-primary">Edit Profile</button>
+        <button class="btn btn-logout">
+          <svg class="logout-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+            <polyline points="16 17 21 12 16 7"></polyline>
+            <line x1="21" y1="12" x2="9" y2="12"></line>
+          </svg>
+          Log Out
+        </button>
+      </section>
+
+    </main>
+
+  </div>
+
+</body>
+</html>

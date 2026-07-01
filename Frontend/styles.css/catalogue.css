@@ -1,0 +1,302 @@
+/* =========================================
+   CSS Reset & Base Styles
+   ========================================= */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f7f8fc; /* Slight purple/blue tint matching design */
+    color: #333;
+    padding-bottom: 90px; /* Space for fixed bottom nav */
+}
+
+/* =========================================
+   Header 
+   ========================================= */
+.app-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    background-color: #f7f8fc;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.app-header .logo {
+    font-size: 20px;
+    color: #002db3; /* Deep CampusPay blue */
+    font-weight: 700;
+}
+
+.app-header .icon-btn {
+    background: none;
+    border: none;
+    font-size: 22px;
+    color: #002db3;
+    cursor: pointer;
+}
+
+/* =========================================
+   Search Bar
+   ========================================= */
+.search-container {
+    padding: 0 16px 16px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.search-box {
+    display: flex;
+    align-items: center;
+    background: #eaecef;
+    border: 1px solid #dcdfe4;
+    border-radius: 8px;
+    padding: 12px 16px;
+}
+
+.search-box i {
+    color: #666;
+    margin-right: 10px;
+    font-size: 15px;
+}
+
+.search-box input {
+    border: none;
+    outline: none;
+    width: 100%;
+    font-size: 14px;
+    color: #333;
+    background: transparent;
+}
+
+.search-box input::placeholder {
+    color: #5a5a5a;
+}
+
+/* =========================================
+   Category Filters (Scrollable)
+   ========================================= */
+.category-filters {
+    display: flex;
+    gap: 12px;
+    padding: 0 16px 20px;
+    overflow-x: auto;
+    white-space: nowrap;
+    scrollbar-width: none; /* Hide scrollbar Firefox */
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.category-filters::-webkit-scrollbar {
+    display: none; /* Hide scrollbar Chrome/Safari */
+}
+
+.category-pill {
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    border: 1px solid #dcdfe4;
+    background-color: transparent;
+    color: #555;
+    transition: all 0.2s ease;
+}
+
+.category-pill.active {
+    background-color: #0052ff; /* Primary Blue */
+    color: #fff;
+    border-color: #0052ff;
+}
+
+/* =========================================
+   Product Grid
+   ========================================= */
+.product-grid {
+    display: grid;
+    grid-template-columns: 1fr; /* 1 column on mobile */
+    gap: 16px;
+    padding: 0 16px 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.product-card {
+    background: #fff;
+    border-radius: 12px;
+    border: 1px solid #e2e4eb;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-image-container {
+    height: 180px;
+    width: 100%;
+    background-color: #ecedf3; /* Light background for images */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Cover ensures standard photo sizing */
+}
+
+.card-content {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.product-title {
+    font-size: 15px;
+    font-weight: 500;
+    color: #222;
+    margin-bottom: 6px;
+}
+
+.product-desc {
+    font-size: 12px;
+    color: #555;
+    line-height: 1.4;
+    margin-bottom: 10px;
+}
+
+.product-location {
+    font-size: 11px;
+    color: #444;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 12px;
+}
+
+.product-location i {
+    color: #777;
+}
+
+.product-price {
+    font-size: 16px;
+    font-weight: 700;
+    color: #0036cc;
+    margin-bottom: 12px;
+    margin-top: auto; /* Pushes price/button to bottom if descriptions vary */
+}
+
+.btn-purchase {
+    width: 100%;
+    background-color: #0052ff;
+    color: #fff;
+    border: none;
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.btn-purchase:hover {
+    background-color: #0042cc;
+}
+
+/* =========================================
+   Load More Button
+   ========================================= */
+.load-more-container {
+    display: flex;
+    justify-content: center;
+    padding: 0 16px 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.btn-load-more {
+    background-color: transparent;
+    color: #0052ff;
+    border: 1px solid #0052ff;
+    padding: 12px 32px;
+    border-radius: 24px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    width: 100%;
+    max-width: 300px;
+    transition: all 0.2s ease;
+}
+
+.btn-load-more:hover {
+    background-color: #f0f4ff;
+}
+
+/* =========================================
+   Bottom Navigation
+   ========================================= */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    display: flex;
+    justify-content: space-around;
+    padding: 12px 0;
+    border-top: 1px solid #e2e4eb;
+    z-index: 100;
+}
+
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: #7a7a7a;
+    font-size: 11px;
+    font-weight: 500;
+    gap: 6px;
+    width: 25%;
+}
+
+.nav-item i {
+    font-size: 20px;
+}
+
+.nav-item.active {
+    color: #002db3;
+}
+
+/* =========================================
+   Desktop Responsiveness (Media Queries)
+   ========================================= */
+@media (min-width: 600px) {
+    /* 2 columns for tablets */
+    .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 900px) {
+    /* 3 columns for small desktops */
+    .product-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (min-width: 1200px) {
+    /* 4 columns for large displays */
+    .product-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+    .load-more-container {
+        padding-bottom: 60px;
+    }
+}

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pending Transactions</title>
+  <link rel="stylesheet" href="styles.css/pending.css">
+</head>
+<body>
+
+  <div class="app-container">
+    
+    <header class="top-nav">
+      <button class="icon-btn back-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#0047FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="19" y1="12" x2="5" y2="12"></line>
+          <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+      </button>
+      <h1 class="page-title">Pending Transactions</h1>
+      <button class="icon-btn history-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#4b5563" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 8v4l3 3"></path>
+          <path d="M3.05 11a9 9 0 1 1 .5 4m-.5-5v5h5"></path>
+        </svg>
+      </button>
+    </header>
+
+    <main class="content">
+      
+      <div class="list-header">
+        <div>
+          <p class="subtitle">AWAITING VERIFICATION</p>
+          <h2 class="title-count">3 Items Found</h2>
+        </div>
+        <div class="filter-box"></div>
+      </div>
+
+      <div class="transactions-list">
+        
+        <article class="transaction-card">
+          <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=600&q=80" alt="MacBook Air M2" class="card-img">
+          <div class="card-body">
+            <div class="card-header">
+              <h3 class="item-title">MacBook Air M2</h3>
+              <p class="item-price">&#8358;450,000</p>
+            </div>
+            <p class="item-desc">Slightly used, excellent condition. Battery health 98%.</p>
+            <div class="item-location">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+              <span>Male Hostel B</span>
+            </div>
+            <div class="card-footer">
+              <div class="status pending">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                <span>PENDING</span>
+              </div>
+              <button class="primary-btn">Verify Payment</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="transaction-card">
+          <img src="https://images.unsplash.com/photo-1532012197267-da84d127e765?auto=format&fit=crop&w=600&q=80" alt="Organic Chemistry Book" class="card-img">
+          <div class="card-body">
+            <div class="card-header">
+              <h3 class="item-title">Organic Chemistry Vol 2</h3>
+              <p class="item-price">&#8358;12,500</p>
+            </div>
+            <p class="item-desc">Clean pages, no highlights. Includes supplementary DVD.</p>
+            <div class="item-location">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+              <span>Science Faculty</span>
+            </div>
+            <div class="card-footer">
+              <div class="status pending">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                <span>PENDING</span>
+              </div>
+              <button class="primary-btn">Verify Payment</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="transaction-card">
+          <img src="https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=600&q=80" alt="Hoodie" class="card-img">
+          <div class="card-body">
+            <div class="card-header">
+              <h3 class="item-title">Campus Varsity Hoodie</h3>
+              <p class="item-price">&#8358;18,000</p>
+            </div>
+            <p class="item-desc">Size L, Navy Blue. Brand new with tags.</p>
+            <div class="item-location">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+              <span>Student Union Building</span>
+            </div>
+            <div class="card-footer">
+              <div class="status pending">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                <span>PENDING</span>
+              </div>
+              <button class="primary-btn">Verify Payment</button>
+            </div>
+          </div>
+        </article>
+
+      </div>
+
+      <div class="security-notice">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="2">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+          <path d="M9 12l2 2 4-4"></path>
+        </svg>
+        <p>All items require physical verification before funds</p>
+      </div>
+
+    </main>
+
+    <nav class="bottom-nav">
+      <button class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+        <span>Home</span>
+      </button>
+      <button class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+        <span>Catalog</span>
+      </button>
+      <button class="nav-item active">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+        <span>Transactions</span>
+        <div class="active-dot"></div>
+      </button>
+      <button class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+        <span>Profile</span>
+      </button>
+    </nav>
+  </div>
+
+</body>
+</html>

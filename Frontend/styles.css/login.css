@@ -1,0 +1,271 @@
+/* Color Variables */
+:root {
+    --brand-blue: #0A3CBA; 
+    --button-blue: #0A55FF;
+    --text-main: #1A1A1A;
+    --text-sub: #525252;
+    --text-muted: #6B7280;
+    --input-border: #D1D5DB;
+    --input-bg: #FFFFFF;
+    --bg-tint: #FAF9FC; /* Very subtle off-white/lavender background */
+    --divider-color: #E5E7EB;
+}
+
+/* Base Reset */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+body {
+    background-color: #E5E7EB; /* Distinct desktop background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Mobile-First Layout container */
+.app-container {
+    background-color: var(--bg-tint);
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+/* Header Styling */
+.header {
+    display: flex;
+    align-items: center;
+    padding: 24px 20px 16px;
+    background-color: transparent;
+}
+
+.back-btn {
+    background: none;
+    border: none;
+    color: var(--brand-blue);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    width: 40px;
+}
+
+.logo {
+    flex: 1;
+    text-align: center;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--brand-blue);
+    letter-spacing: -0.5px;
+}
+
+.header-spacer {
+    width: 40px; /* Maintains center alignment for logo */
+}
+
+/* Typography & Content Spacing */
+.main-content {
+    padding: 24px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--text-main);
+    margin-bottom: 8px;
+}
+
+.subtitle {
+    font-size: 0.95rem;
+    color: var(--text-sub);
+    line-height: 1.4;
+    margin-bottom: 32px;
+    max-width: 95%;
+}
+
+/* Form & Input Styling */
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.input-group label {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--text-sub);
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 16px;
+    border: 1px solid var(--input-border);
+    border-radius: 8px;
+    background-color: var(--input-bg);
+    font-size: 1rem;
+    color: var(--text-main);
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+
+input::placeholder {
+    color: #9CA3AF;
+}
+
+input:focus {
+    border-color: var(--button-blue);
+}
+
+/* Custom layout for Password Input */
+.password-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.password-input-wrapper input {
+    letter-spacing: 2px;
+    font-weight: 700;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 16px;
+    background: none;
+    border: none;
+    color: #4B5563;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+/* Forgot Password Link */
+.forgot-password {
+    display: block;
+    text-align: right;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--brand-blue);
+    text-decoration: none;
+    margin-top: 8px;
+}
+
+.forgot-password:hover {
+    text-decoration: underline;
+}
+
+/* Primary Action Button */
+.submit-btn {
+    background-color: var(--button-blue);
+    color: #FFFFFF;
+    font-size: 1.1rem;
+    font-weight: 600;
+    padding: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 12px;
+    transition: background-color 0.2s;
+}
+
+.submit-btn:hover {
+    background-color: #0045e6;
+}
+
+/* Divider */
+.divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 32px 0 24px;
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.divider::before,
+.divider::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid var(--divider-color);
+}
+
+.divider span {
+    padding: 0 16px;
+}
+
+/* Social Login Buttons */
+.social-login-group {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 40px;
+}
+
+.social-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background-color: var(--input-bg);
+    border: 1px solid var(--input-border);
+    border-radius: 8px;
+    padding: 14px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--text-main);
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.social-btn:hover {
+    background-color: #F3F4F6;
+}
+
+/* Footer Section */
+.signup-prompt-container {
+    margin-top: auto;
+    padding-bottom: 24px;
+}
+
+.signup-prompt {
+    text-align: center;
+    font-size: 0.95rem;
+    color: var(--text-sub);
+}
+
+.signup-prompt a {
+    color: var(--brand-blue);
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.signup-prompt a:hover {
+    text-decoration: underline;
+}
+
+/* Desktop Responsiveness */
+@media (min-width: 600px) {
+    .app-container {
+        max-width: 480px;
+        min-height: auto;
+        border-radius: 20px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+        overflow: hidden;
+        margin: 40px 0;
+    }
+}
