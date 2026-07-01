@@ -1,6 +1,8 @@
 import httpx
 from app.core.config import settings
 from datetime import datetime, timedelta, timezone
+from typing import Optional
+from decimal import Decimal
 
 
 async def fetch_access_token() -> dict:
@@ -24,7 +26,7 @@ async def fetch_access_token() -> dict:
 
         access_token = result["data"]["access_token"]
         refresh_token = result["data"]["refresh_token"]
-	    return {"access_token": access_token, "refresh_token": refresh_token}
+        return {"access_token": access_token, "refresh_token": refresh_token}
 
 async def refresh_access_token(access_token: str, refresh_token: str) -> dict:
     async with httpx.AsyncClient() as client:
@@ -88,4 +90,38 @@ async def nomba_api_request(method: str , endpoint: str, payload: dict | None = 
         )
         return response.json()
     
-async def create_virtual_account()
+async def create_virtual_account(student_name: str, account_ref: str, amount:Decimal, expiry_date:datetime= None)->dict:
+    return await nomba_api_request(
+        method="POST",
+        endpoint="/v1/accounts/virtual",
+        
+        payload={
+            "accountRef":account_ref,
+            "accountName":student_name,
+            "expectedAmount":int(amount * 100),
+            "expiryDate":"2099-12-31"
+                }
+    )
+        
+async def transfer_to_bank(amount:Decimal,
+                           account_name: str, 
+                           account_number:str,
+                           bank_code:str, 
+                           sender_name:str,
+                           narration:str, 
+                           merchantTxRef:str
+                           )-> dict:
+    url = "/v2/transfers/bank"
+    return await nomba_api_request(
+        method="POST",
+        endpoint=url,
+        payload = {
+            "amount":int(amount * 100),
+            "accountNumber": account_number,
+            "accountName": account_name,
+            "bankCode": bank_code,
+            "merchantTxRef":merchantTxRef,
+            "senderName":sender_name,
+           "narration":narration,
+    }
+    )
