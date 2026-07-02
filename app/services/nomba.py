@@ -8,10 +8,10 @@ from decimal import Decimal
 async def fetch_access_token() -> dict:
     async with httpx.AsyncClient() as client:
         res= await client.post(
-            "https://api.nomba.com/v1/auth/token/issue",
+            f"{settings.NOMBA_BASE_URL}/v1/auth/token/issue",
             headers={
                 "Content-Type":"application/json",
-                "accountId":settings.ACCOUNT_ID,
+                "accountId":settings.NOMBA_ACCOUNT_ID,
             },
             json={
                 "grant_type":"client_credentials",
@@ -31,11 +31,11 @@ async def fetch_access_token() -> dict:
 async def refresh_access_token(access_token: str, refresh_token: str) -> dict:
     async with httpx.AsyncClient() as client:
         res= await client.post(
-            "https://api.nomba.com/v1/auth/token/refresh",
+            f"{settings.NOMBA_BASE_URL}/v1/auth/token/refresh",
             headers={
                 "Authorization": f"Bearer {access_token}",
                 "Content-Type":"application/json",
-                "accountId":settings.ACCOUNT_ID,
+                "accountId":settings.NOMBA_ACCOUNT_ID,
             },
             json={
                 "grant_type":"refresh_token",
@@ -84,22 +84,21 @@ async def nomba_api_request(method: str , endpoint: str, payload: dict | None = 
             headers={
                 "Authorization": f"Bearer {access_token}",
                 "Content-Type": "application/json",
-                "accountId": settings.ACCOUNT_ID,
+                "accountId": settings.NOMBA_ACCOUNT_ID,
             },
             json=payload,
         )
         return response.json()
     
-async def create_virtual_account(student_name: str, account_ref: str, amount:Decimal, expiry_date:datetime= None)->dict:
+async def create_virtual_account(student_name: str, account_ref: str, expiry_date:datetime= None)->dict:
     return await nomba_api_request(
         method="POST",
-        endpoint="/v1/accounts/virtual",
+        endpoint=f"/v1/accounts/virtual/{settings.NOMBA_SUB_ACCOUNT_ID}",
         
         payload={
             "accountRef":account_ref,
             "accountName":student_name,
-            "expectedAmount":int(amount * 100),
-            "expiryDate":"2099-12-31"
+            "expiryDate": "2099-12-31 00:00:00",
                 }
     )
         
