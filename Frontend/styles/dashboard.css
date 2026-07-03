@@ -353,7 +353,10 @@ body {
   z-index: 30;
 }
 
+
 .nav-item {
+  text-decoration: none;
+  color: inherit;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -381,3 +384,4 @@ body {
   background-color: #003BCC;
   color: #ffffff;
 }
+
