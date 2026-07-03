@@ -13,8 +13,7 @@ import tempfile
 bearer_schema=HTTPBearer()
 
 
-creds_json = base64.b64decode(os.environ["FIREBASE_CREDENTIALS_BASE64"])
-creds_dict = json.loads(creds_json)
+creds_dict = json.loads(settings.FIREBASE_CREDENTIALS)
 firebase_creds = credentials.Certificate(creds_dict)
 
 default_app = firebase_admin.initialize_app(firebase_creds)

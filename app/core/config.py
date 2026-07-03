@@ -14,6 +14,7 @@ class Settings(BaseSettings):
     FIREBASE_CREDENTIALS_PATH:str
     TOKEN_URL:str
     WEBHOOK_SECRET:str
+    FIREBASE_CREDENTIALS:str
     
 
     class Config:
