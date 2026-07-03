@@ -16,6 +16,8 @@ from sqlalchemy import Enum as SAEnum
 import uuid
 
 
+    
+    
 class approles(Enum):
     vendor = "Vendor"
     Student = "Student"
@@ -45,6 +47,7 @@ class users(Base):
     __tablename__ = "user"
 
     user_id: Mapped[str] = mapped_column(String, primary_key=True, default= lambda: str(uuid.uuid4()))
+    firebase_uid: Mapped[str] = mapped_column(String, unique=True, index=True)
     role: Mapped[approles] = mapped_column(SAEnum(approles))
     full_name: Mapped[str] = mapped_column(String)
     email: Mapped[str] = mapped_column(String, unique=True)
