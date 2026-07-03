@@ -1,0 +1,195 @@
+/* Color Variables specifically for this screen */
+:root {
+    --brand-blue: #0A3CBA;
+    --icon-blue: #0A55FF;
+    --bg-tint: #F8F9FC; /* Slight purple/grey tint for top section */
+    --bg-white: #FFFFFF;
+    --text-main: #1A1A1A;
+    --text-sub: #525252;
+    --border-light: #E5E7EB;
+    --pin-box-bg: #F3F4F6;
+    --btn-disabled: #8BAAF3;
+}
+
+/* Base Reset */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+body {
+    background-color: #E5E7EB; /* Desktop background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Mobile-First App Container */
+.app-container {
+    background-color: var(--bg-tint);
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+/* Header */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 16px;
+    background-color: var(--bg-tint);
+    border-bottom: 1px solid var(--border-light);
+}
+
+.back-btn {
+    background: none;
+    border: none;
+    color: var(--brand-blue);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+}
+
+.header-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--brand-blue);
+    margin: 0;
+}
+
+.header-spacer {
+    width: 40px; /* Balances the header flex layout */
+}
+
+/* Top PIN Display Section */
+.pin-display-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 24px;
+    flex: 1;
+}
+
+.icon-circle {
+    width: 72px;
+    height: 72px;
+    background-color: var(--icon-blue);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    color: white;
+    margin-bottom: 24px;
+}
+
+.title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--text-main);
+    margin-bottom: 12px;
+}
+
+.subtitle {
+    font-size: 0.95rem;
+    color: var(--text-sub);
+    text-align: center;
+    line-height: 1.5;
+    margin-bottom: 32px;
+    max-width: 300px;
+}
+
+/* PIN Input Boxes */
+.pin-boxes {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+}
+
+.pin-box {
+    width: 56px;
+    height: 64px;
+    border: 1px solid var(--border-light);
+    border-radius: 12px;
+    background-color: var(--pin-box-bg);
+}
+
+/* Keypad Section */
+.keypad-section {
+    background-color: var(--bg-white);
+    border-top: 1px solid var(--border-light);
+    padding: 32px 24px 24px;
+    display: flex;
+    flex-direction: column;
+}
+
+.keypad-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: y 24px; /* Vertical gap */
+    row-gap: 32px;
+    margin-bottom: 40px;
+}
+
+.key {
+    background: none;
+    border: none;
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: var(--text-main);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    border-radius: 50%;
+    transition: background-color 0.2s;
+}
+
+.key:active {
+    background-color: #F3F4F6;
+}
+
+.backspace-key {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Action Button */
+.action-container {
+    width: 100%;
+}
+
+.set-pin-btn {
+    width: 100%;
+    background-color: var(--btn-disabled);
+    color: #FFFFFF;
+    font-size: 1.1rem;
+    font-weight: 600;
+    padding: 18px;
+    border: none;
+    border-radius: 12px;
+    cursor: not-allowed;
+}
+
+/* Desktop Responsiveness */
+@media (min-width: 600px) {
+    .app-container {
+        max-width: 480px;
+        min-height: 800px; /* Fixed height for card look */
+        height: 90vh;
+        border-radius: 20px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+        overflow: hidden;
+    }
+}

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vendor Directory</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/vendor.css">
+</head>
+<body>
+
+    <header class="app-header">
+        <h1>Vendor Directory</h1>
+        <button class="filter-btn"><i class="fa-solid fa-sliders"></i></button>
+    </header>
+
+    <div class="search-container">
+        <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" placeholder="Search by name or location...">
+        </div>
+    </div>
+
+    <main class="vendor-list">
+        
+        <article class="vendor-card">
+            <div class="card-image-container">
+                <span class="badge open"><i class="fa-solid fa-circle dot"></i> OPEN</span>
+                <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=600&q=80" alt="Campus Bistro Storefront">
+            </div>
+            <div class="card-content">
+                <h2>Campus Bistro</h2>
+                <div class="meta-info">
+                    <i class="fa-solid fa-location-dot"></i> Student Union, Level 1
+                </div>
+                <div class="meta-info">
+                    <i class="fa-solid fa-phone"></i> +234 800 123 4567
+                </div>
+                <button class="action-btn">View Catalogue</button>
+            </div>
+        </article>
+
+        <article class="vendor-card">
+            <div class="card-image-container">
+                <span class="badge closed"><i class="fa-solid fa-circle dot"></i> CLOSED</span>
+                <img src="https://images.unsplash.com/photo-1495446815901-a7297e633e8d?auto=format&fit=crop&w=600&q=80" alt="The Book Nook Storefront">
+            </div>
+            <div class="card-content">
+                <h2>The Book Nook</h2>
+                <div class="meta-info">
+                    <i class="fa-solid fa-location-dot"></i> Faculty Center, Ground Floor
+                </div>
+                <div class="meta-info">
+                    <i class="fa-solid fa-phone"></i> +234 800 987 6543
+                </div>
+                <button class="action-btn">View Catalogue</button>
+            </div>
+        </article>
+
+        <article class="vendor-card">
+            <div class="card-image-container">
+                <span class="badge open"><i class="fa-solid fa-circle dot"></i> OPEN</span>
+                <img src="https://images.unsplash.com/photo-1593640408182-31c70c8268f5?auto=format&fit=crop&w=600&q=80" alt="Tech Hub Repairs Storefront">
+            </div>
+            <div class="card-content">
+                <h2>Tech Hub Repairs</h2>
+                <div class="meta-info">
+                    <i class="fa-solid fa-location-dot"></i> Engineering Block, Room 42
+                </div>
+                <div class="meta-info">
+                    <i class="fa-solid fa-phone"></i> +234 800 222 3333
+                </div>
+                <button class="action-btn">View Catalogue</button>
+            </div>
+        </article>
+
+        <article class="vendor-card">
+            <div class="card-image-container">
+                <span class="badge open"><i class="fa-solid fa-circle dot"></i> OPEN</span>
+                <img src="https://images.unsplash.com/photo-1533900298318-6b8da08a523e?auto=format&fit=crop&w=600&q=80" alt="Fresh Mart Storefront">
+            </div>
+            <div class="card-content">
+                <h2>Fresh Mart</h2>
+                <div class="meta-info">
+                    <i class="fa-solid fa-location-dot"></i> North Gate Plaza
+                </div>
+                <div class="meta-info">
+                    <i class="fa-solid fa-phone"></i> +234 800 555 1212
+                </div>
+                <button class="action-btn">View Catalogue</button>
+            </div>
+        </article>
+
+    </main>
+
+    <nav class="bottom-nav">
+        <a href="#" class="nav-item">
+            <i class="fa-solid fa-house"></i>
+            <span>Home</span>
+        </a>
+        <a href="#" class="nav-item active">
+            <i class="fa-solid fa-bag-shopping"></i>
+            <span>Catalogue</span>
+        </a>
+        <a href="#" class="nav-item">
+            <i class="fa-solid fa-receipt"></i>
+            <span>Transactions</span>
+        </a>
+        <a href="#" class="nav-item">
+            <i class="fa-regular fa-user"></i>
+            <span>Profile</span>
+        </a>
+    </nav>
+
+</body>
+</html>

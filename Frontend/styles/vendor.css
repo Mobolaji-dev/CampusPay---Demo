@@ -1,0 +1,236 @@
+/* CSS Reset & Base Styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f4f5f9;
+    color: #333;
+    /* Padding bottom to ensure content isn't hidden behind bottom nav */
+    padding-bottom: 80px; 
+}
+
+/* Header & Search */
+.app-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 16px 16px;
+    background-color: #f4f5f9;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.app-header h1 {
+    font-size: 24px;
+    color: #0b1a60; /* Deep blue from design */
+    font-weight: 700;
+}
+
+.app-header .filter-btn {
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: #666;
+    cursor: pointer;
+}
+
+.search-container {
+    padding: 0 16px 16px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.search-box {
+    display: flex;
+    align-items: center;
+    background: #fff;
+    border: 1px solid #dcdfe4;
+    border-radius: 8px;
+    padding: 12px 16px;
+}
+
+.search-box i {
+    color: #888;
+    margin-right: 12px;
+    font-size: 16px;
+}
+
+.search-box input {
+    border: none;
+    outline: none;
+    width: 100%;
+    font-size: 15px;
+    color: #333;
+    background: transparent;
+}
+
+.search-box input::placeholder {
+    color: #999;
+}
+
+/* Vendor Cards (Mobile First & Grid) */
+.vendor-list {
+    display: grid;
+    grid-template-columns: 1fr; /* Single column on mobile */
+    gap: 16px;
+    padding: 0 16px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.vendor-card {
+    background: #fff;
+    border-radius: 12px;
+    border: 1px solid #eaebf0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-image-container {
+    position: relative;
+    height: 150px;
+    width: 100%;
+}
+
+.card-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Status Badges */
+.badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    padding: 4px 10px;
+    border-radius: 16px;
+    font-size: 11px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    letter-spacing: 0.5px;
+}
+
+.badge .dot {
+    font-size: 7px;
+}
+
+.badge.open {
+    background-color: rgba(255, 255, 255, 0.95);
+    color: #1a7f37;
+}
+
+.badge.closed {
+    background-color: #f1f3f4;
+    color: #5f6368;
+}
+
+.card-content {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.card-content h2 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #111;
+    margin-bottom: 10px;
+}
+
+.meta-info {
+    display: flex;
+    align-items: center;
+    color: #555;
+    font-size: 13.5px;
+    margin-bottom: 8px;
+}
+
+.meta-info i {
+    width: 18px;
+    color: #777;
+    text-align: center;
+    margin-right: 8px;
+}
+
+.action-btn {
+    margin-top: 12px;
+    width: 100%;
+    background-color: #0056ff; /* Vibrant blue */
+    color: #fff;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 14.5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.action-btn:hover {
+    background-color: #0045cc;
+}
+
+/*  Bottom Navigation */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    display: flex;
+    justify-content: space-around;
+    padding: 12px 0;
+    border-top: 1px solid #eaebf0;
+    z-index: 100;
+}
+
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: #7a7a7a;
+    font-size: 11px;
+    font-weight: 500;
+    gap: 6px;
+    width: 25%;
+}
+
+.nav-item i {
+    font-size: 20px;
+}
+
+.nav-item.active {
+    color: #0056ff;
+}
+
+/* Desktop Responsiveness (Media Queries) */
+@media (min-width: 600px) {
+    /* Switch to 2 columns on tablets */
+    .vendor-list {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 900px) {
+    /* Switch to 3 columns on small desktops */
+    .vendor-list {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (min-width: 1200px) {
+    /* Switch to 4 columns on large desktops */
+    .vendor-list {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
