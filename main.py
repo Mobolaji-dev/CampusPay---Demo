@@ -1,15 +1,34 @@
 from fastapi import FastAPI
-from app.api import webhooks
+
+from app.api import auth, webhooks
 from app.core.database import Base, engine
-from app.models import models
 
 app = FastAPI(title="CampusPay DVA Infrastructure")
 
-app.include_router(webhooks.router, tags=["Webhooks"])
+origins = [
+  "https://campuspay-web.vercel.app"
+]
+
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+app.include_router(auth.router)
+app.include_router(webhooks.router)
+
 
 @app.get("/health")
 async def health():
-    return {"status": "live", "service": "CampusPay Backend"}
+    return {
+        "status": "live",
+        "service": "CampusPay Backend",
+    }
+
 
 @app.on_event("startup")
 async def startup():
