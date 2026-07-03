@@ -44,7 +44,7 @@ export function getUid() {
 
 const API_BASE_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
   ? 'http://localhost:8000'
-  : 'https://campuspay-web.vercel.app';
+  : 'https://campuspay.pxxl.run';
 
 async function syncWithBackend(token, uid, fullName = null, role = 'student') {
   try {
@@ -56,6 +56,7 @@ async function syncWithBackend(token, uid, fullName = null, role = 'student') {
       },
       body: JSON.stringify({
         full_name: fullName,
+        fullname: fullName,
         role: role
       })
     });
@@ -89,6 +90,7 @@ if (loginForm) {
       const token = await user.getIdToken(true);
 
       console.log("User signed in:", user);
+    
       localStorage.setItem('token', token);
       localStorage.setItem('uid', user.uid);
 
@@ -116,6 +118,7 @@ if (signupForm) {
     const fullName = document.getElementById("fullName").value;
     const email = signupForm["signup-email"].value;
     const password = signupForm["signup-password"].value; 
+    const fullname = signupForm["fullName"].value;
 
     signupbtn.classList.add('loading')
 
@@ -144,4 +147,9 @@ if (signupForm) {
     };
   })
 };
+
+
+
+
+
 
