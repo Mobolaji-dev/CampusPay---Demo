@@ -18,7 +18,12 @@ async def sync_user(
 ):
     try:
         body = await request.json()
-        full_name = body.get("full_name") or firebase_user.get("name") or "CampusPay User"
+        full_name = (
+            body.get("full_name")
+            or body.get("fullname")
+            or firebase_user.get("name")
+            or None  # let user_service handle fallback so it can distinguish real vs placeholder
+        )
         result = await get_or_create_user(
             db=db,
             firebase_uid=firebase_user.get("uid"),

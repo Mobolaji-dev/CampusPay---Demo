@@ -21,6 +21,13 @@ async def get_or_create_user(
     db_user = result.scalar_one_or_none()
 
     if db_user:
+        # Update full_name if a real name is provided and the stored one is missing or a fallback
+        FALLBACK_NAMES = {"CampusPay User", None, ""}
+        if full_name and db_user.full_name in FALLBACK_NAMES:
+            db_user.full_name = full_name
+            await db.commit()
+            logger.info(f"Updated full_name for user {db_user.user_id} to '{full_name}'")
+
         wallet_result = await db.execute(
             select(wallets).where(wallets.user_id == db_user.user_id)
         )
@@ -46,11 +53,11 @@ async def get_or_create_user(
     except KeyError:
         raise ValueError(f"Invalid role: {role_str}")
 
-    # Create user
+    # Create user (apply fallback only here during first creation)
     new_user = users(
         firebase_uid=firebase_uid,
         role=app_role,
-        full_name=full_name,
+        full_name=full_name or "CampusPay User",
         email=email,
     )
     db.add(new_user)
