@@ -58,6 +58,7 @@ if (loginForm) {
 
 
       console.log("User signed in:", user);
+    
       localStorage.setItem('token', token);
       localStorage.setItem('uid', user.uid);
       loginbtn.classList.remove('loading');
@@ -82,6 +83,7 @@ if (signupForm) {
 
     const email = signupForm["signup-email"].value;
     const password = signupForm["signup-password"].value; 
+    const fullname = signupForm["fullName"].value;
 
     signupbtn.classList.add('loading')
 
@@ -90,10 +92,22 @@ if (signupForm) {
       // Signed up
       
       const user = userCredential.user;
-      console.log("User signed up:", user);
+      const token = await user.getIdToken(true);
+
       localStorage.setItem('token', token);
       localStorage.setItem('uid', user.uid);
-      loginbtn.classList.remove('loading');
+      signupbtn.classList.remove('loading');
+
+      await fetch('https://campuspay.pxxl.run/auth/sync', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          fullname: fullname,
+        })
+      });
       
     } 
       catch(err) {
