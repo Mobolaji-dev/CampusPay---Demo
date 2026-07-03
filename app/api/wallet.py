@@ -48,8 +48,8 @@ async def get_wallet(
             user_id=user.user_id,
             role=user.role.value,
             full_name=user.full_name,
-            available_balance=wallet.available_balance,
-            locked_balance=wallet.locked_balance,
+            available_balance=str(wallet.available_balance),
+            locked_balance=str(wallet.locked_balance),
             bank_account_number=account.bank_account_number if account else None,
             bank_name=account.bank_name if account else None,
         )
