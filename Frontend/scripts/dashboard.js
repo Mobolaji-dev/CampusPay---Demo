@@ -9,7 +9,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   try {
     const res = await fetch ('https://campuspay.pxxl.run/api/wallet', {
       headers: {
-        "Authorization": `Bearer ${token}`
+        "Authorization": `Bearer ${token}`,
+        "Content-Type": "application/json"
       }
     });
 

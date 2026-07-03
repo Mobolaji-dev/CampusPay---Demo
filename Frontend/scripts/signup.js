@@ -1,7 +1,8 @@
-// show or hide password login
+// Show and Hide password sign-up
+
 document.addEventListener('DOMContentLoaded', () => {
     // Select the input and the button
-    const passwordInput = document.getElementById('login-password');
+    const passwordInput = document.getElementById('signup-password');
     const toggleButton = document.querySelector('.toggle-password');
 
     toggleButton.addEventListener('click', () => {
@@ -32,3 +33,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
+
+
