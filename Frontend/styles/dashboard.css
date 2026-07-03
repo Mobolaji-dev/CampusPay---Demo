@@ -353,6 +353,10 @@ body {
   z-index: 30;
 }
 
+.bottom-nav a {
+  text-decoration: none;
+}
+
 .nav-item {
   display: flex;
   flex-direction: column;
@@ -381,3 +385,4 @@ body {
   background-color: #003BCC;
   color: #ffffff;
 }
+
