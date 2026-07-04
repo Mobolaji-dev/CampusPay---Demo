@@ -20,7 +20,7 @@ async def sync_user(
             db=db,
             firebase_uid=firebase_user["uid"],
             email=firebase_user["email"],
-            full_name=payload.full_name or firebase_user.get("name") or "New User",,
+            full_name=payload.full_name or firebase_user.get("name") or "New User",
             role_str=payload.role,
             phone=payload.phone
         )
