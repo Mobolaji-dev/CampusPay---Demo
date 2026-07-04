@@ -50,7 +50,7 @@ const API_BASE_URL = window.location.hostname === 'localhost' || window.location
   ? 'http://localhost:8000'
   : 'https://campuspay.pxxl.run';
 
-async function syncWithBackend(token, uid, fullName = null, role = 'student') {
+async function syncWithBackend(token, uid, fullName = null, role = 'student', phoneNo) {
   try {
     const response = await fetch(`${API_BASE_URL}/auth/sync`, {
       method: 'POST',
@@ -60,7 +60,8 @@ async function syncWithBackend(token, uid, fullName = null, role = 'student') {
       },
       body: JSON.stringify({
         full_name: fullName,
-        role: role
+        role: role,
+        phone_no: phoneNo,
       })
     });
     if (!response.ok) {
@@ -123,6 +124,7 @@ if (signupForm) {
     const password = signupForm["signup-password"].value; 
     const fullName = signupForm["fullName"].value;
     const role = signupForm["accountType"].value;
+    const phoneNo = signupForm["phone"].value;
 
     signupbtn.classList.add('loading');
 
@@ -142,7 +144,7 @@ if (signupForm) {
       localStorage.setItem('token', token);
       localStorage.setItem('uid', user.uid);
 
-      await syncWithBackend(token, user.uid, fullName, role);
+      await syncWithBackend(token, user.uid, fullName, role, phoneNo);
 
       signupbtn.classList.remove('loading');
       window.location.href = "dashboard.html";
