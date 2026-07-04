@@ -61,7 +61,7 @@ async function syncWithBackend(token, uid, fullName = null, role = 'student', ph
       body: JSON.stringify({
         full_name: fullName,
         role: role,
-        phone_no: phoneNo,
+        phone: phoneNo,
       })
     });
     if (!response.ok) {
