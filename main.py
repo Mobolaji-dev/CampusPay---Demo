@@ -21,7 +21,7 @@ app.add_middleware(
 )
 
 app.include_router(auth.router)
-app.include_router(webhooks.router, prefix="/api", tags=["webhooks"])
+app.include_router(webhooks.router, tags=["webhooks"])
 app.include_router(wallet.router, prefix="/api", tags=["wallet"])
 
 
