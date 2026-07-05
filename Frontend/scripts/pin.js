@@ -95,7 +95,8 @@ pinButton.addEventListener("click", async (e) => {
         })
     });
 
-    if(!response.ok) {
+    if(!response.ok, error) {
+        console.error(error)
         throw new Error(`Error setting pin`)
     } else {
         console.log('PIN set successful');
