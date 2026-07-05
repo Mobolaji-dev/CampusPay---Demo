@@ -1,4 +1,15 @@
-document.addEventListener("DOMContentLoaded", () => {
+import { getToken } from "./auth.js";
+
+document.addEventListener("DOMContentLoaded", async () => {
+    const token = await getToken();
+    if (!token) {
+    console.log("No authenticated token, redirecting to index.html...");
+    window.location.href = "index.html";
+    return;
+  }
+})
+
+document.addEventListener("DOMContentLoaded", async () => {
     // 1. Select DOM Elements
     const pinBoxes = document.querySelectorAll(".pin-box");
     const keys = document.querySelectorAll(".keypad-grid .key:not(.backspace-key)"); // Select only number keys
@@ -55,11 +66,6 @@ document.addEventListener("DOMContentLoaded", () => {
     // 7. Handle Submit Button Click
     setPinBtn.addEventListener("click", () => {
         if (currentPin.length === PIN_LENGTH) {
-            const pinDataObject = getPinData();
-            
-            // Log the object to the console to verify it works
-            console.log("Success! PIN Object:", pinDataObject);
-            
             // Optional: Alert to show the user it worked
             alert(currentPin)
             

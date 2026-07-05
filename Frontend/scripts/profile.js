@@ -1,4 +1,5 @@
-import { auth } from "./fireAuth.js";
+import { auth } from "./firebaseAuth.js";
+import { getToken } from "./auth.js";
 import { signOut } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -10,7 +11,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   try {
-    let res = await fetch(`${API_BASE_URL}/api/wallet`, {
+    let res = await fetch(`${API_BASE_URL}/api/profile`, {
       headers: {
         "Authorization": `Bearer ${token}`,
         "Content-Type": "application/json"
@@ -27,6 +28,17 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 
   const profile = await res.json();
+
+
+  const profileName  =  document.getElementById("profile-name");
+  const email = document.getElementById("email");
+  const phone = document.getElementById("phone")
+  const role = document.getElementById("role");
+
+  profileName.textContent = profile.full_name;
+  email.textContent = profile.email;
+  phone.textContent = profile.phone;
+  role.textContent = profile.role;
 })
 
 

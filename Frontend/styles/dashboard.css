@@ -312,7 +312,7 @@ body {
 }
 
 .fab-btn {
-
+  text-decoration: none;
   width: 100%;
   background-color: #0047FF;
   color: #ffffff;
