@@ -16,8 +16,6 @@ from sqlalchemy import Enum as SAEnum
 import uuid
 
 
-    
-    
 class approles(Enum):
     vendor = "Vendor"
     Student = "Student"
@@ -46,15 +44,15 @@ class users(Base):
 
     __tablename__ = "user"
 
-    user_id: Mapped[str] = mapped_column(String, primary_key=True, default= lambda: str(uuid.uuid4()))
+    user_id: Mapped[str] = mapped_column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
     firebase_uid: Mapped[str] = mapped_column(String, unique=True, index=True)
     role: Mapped[approles] = mapped_column(SAEnum(approles))
     full_name: Mapped[str] = mapped_column(String)
     email: Mapped[str] = mapped_column(String, unique=True)
     phone: Mapped[str | None] = mapped_column(String, unique=True)
-    vendor_bank_account: Mapped[str | None ] = mapped_column(String, nullable=True)
+    vendor_bank_account: Mapped[str | None] = mapped_column(String, nullable=True)
     vendor_bank_code: Mapped[int | None] = mapped_column(String, nullable=True)
-    transaction_pin_hash: Mapped[str | None]=mapped_column(String, nullable=True)
+    transaction_pin_hash: Mapped[str | None] = mapped_column(String, nullable=True)
     created_at: Mapped[datetime] = mapped_column(
         DateTime,
         default=datetime.now,
@@ -65,7 +63,7 @@ class accounts(Base):
 
     __tablename__ = "account"
 
-    dva_id: Mapped[str] = mapped_column(String, primary_key=True, default=lambda:str(uuid.uuid4()))
+    dva_id: Mapped[str] = mapped_column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
     student_id: Mapped[str] = mapped_column(
         String,
         ForeignKey("user.user_id"),
@@ -84,7 +82,7 @@ class wallets(Base):
 
     __tablename__ = "wallet"
 
-    wallet_id: Mapped[str] = mapped_column(String, primary_key=True, default=lambda:str(uuid.uuid4()))
+    wallet_id: Mapped[str] = mapped_column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
     user_id: Mapped[str] = mapped_column(
         String,
         ForeignKey("user.user_id"),
@@ -94,8 +92,8 @@ class wallets(Base):
     locked_balance: Mapped[Decimal] = mapped_column(Numeric(12, 2))
     currency: Mapped[str] = mapped_column(String(3))
     updated_at: Mapped[datetime] = mapped_column(
-        DateTime,
-        default=datetime.now,
+        DateTime(timezone=True),
+        default=lambda: datetime.now(timezone.utc),
     )
 
 
@@ -119,7 +117,7 @@ class orders(Base):
 
     __tablename__ = "order"
 
-    order_id: Mapped[str] = mapped_column(String, primary_key=True, default=lambda:str(uuid.uuid4()))
+    order_id: Mapped[str] = mapped_column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
     student_id: Mapped[str] = mapped_column(
         String,
         ForeignKey("user.user_id"),
@@ -146,6 +144,7 @@ class orders(Base):
         DateTime,
         default=datetime.now,
     )
+
 
 class products(Base):
     __tablename__ = "product"
