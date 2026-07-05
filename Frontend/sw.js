@@ -11,7 +11,7 @@ const PRECACHE_URLS = [
   '/scripts/profile.js', '/scripts/pin.js', '/scripts/auth.js', '/scripts/firebaseAuth.js', 'scripts/pwa.js',
 
   '/manifest.json',
-  '/icons/icon_1.png', '/icons/icon_2.png' , '/icons/icon_3.png'
+  '/icons/Icon_1.png', '/icons/Icon_2.png' , '/icons/Icon_3.png'
 ];
 
 
