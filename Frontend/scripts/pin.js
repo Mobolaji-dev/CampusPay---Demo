@@ -87,7 +87,7 @@ const API_BASE_URL = window.location.hostname === 'localhost' || window.location
 pinButton.addEventListener("click", async (e) => {
     e.preventDefault();
 
-    const response = fetch(`${API_BASE_URL}/profile/set-pin`, {
+    const response = fetch(`${API_BASE_URL}/api/profile/set-pin`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
