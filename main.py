@@ -8,9 +8,9 @@ from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy import select
 
 from app.api import auth, catalog, webhooks, wallet, profile, orders
-from app.core.database import Base, engine, AsyncSessionLocal
+from app.core.database import Base, engine, sessionLocal
 from app.models.models import orders as Orders, wallets, orderstat
-from app.models import models  # noqa: F401 — registers all tables against Base
+from app.models import models  
 
 logger = logging.getLogger(__name__)
 
@@ -19,7 +19,7 @@ async def expiry_job():
     while True:
         await asyncio.sleep(60)
         try:
-            async with AsyncSessionLocal() as db:
+            async with sessionLocal() as db:
                 result = await db.execute(
                     select(Orders).where(
                         Orders.order_status == orderstat.pending,
