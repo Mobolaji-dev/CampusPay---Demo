@@ -84,7 +84,7 @@ const API_BASE_URL = window.location.hostname === 'localhost' || window.location
   ? 'http://localhost:8000'
   : 'https://campuspay.pxxl.run';
 
-pinButton.addEventListener("click", (e) => {
+pinButton.addEventListener("click", async (e) => {
     e.preventDefault();
 
     const response = fetch(`${API_BASE_URL}/profile/set-pin`, {
