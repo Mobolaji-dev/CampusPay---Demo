@@ -1,5 +1,6 @@
 import { getToken } from "./auth.js";
 
+
 document.addEventListener("DOMContentLoaded", async () => {
     const token = await getToken();
     if (!token) {
@@ -9,6 +10,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 })
 
+let currentPin = "";
 document.addEventListener("DOMContentLoaded", async () => {
     // 1. Select DOM Elements
     const pinBoxes = document.querySelectorAll(".pin-box");
@@ -72,4 +74,35 @@ document.addEventListener("DOMContentLoaded", async () => {
             // TODO: Add your API fetch/axios logic here
         }
     });
+
+});
+
+
+const pinButton = document.getElementById("set-pin-btn");
+const token = await getToken();
+const API_BASE_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+  ? 'http://localhost:8000'
+  : 'https://campuspay.pxxl.run';
+
+pinButton.addEventListener("click", (e) => {
+    e.preventDefault();
+
+    const response = fetch(`${API_BASE_URL}/profile/set-pin`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify({
+            pin: currentPin,
+        })
+    });
+
+    if(!response.ok) {
+        const errText = await response.text();
+        throw new Error(`Error setting pin: ${errText}`)
+    } else {
+        console.log('PIN set successful');
+        window.location.href = "profile.html";
+    }
 });
