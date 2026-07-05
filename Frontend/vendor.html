@@ -25,76 +25,9 @@
         </div>
     </div>
 
-    <main class="vendor-list">
-        
-        <article class="vendor-card">
-            <div class="card-image-container">
-                <span class="badge open"><i class="fa-solid fa-circle dot"></i> OPEN</span>
-                <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=600&q=80" alt="Campus Bistro Storefront">
-            </div>
-            <div class="card-content">
-                <h2>Campus Bistro</h2>
-                <div class="meta-info">
-                    <i class="fa-solid fa-location-dot"></i> Student Union, Level 1
-                </div>
-                <div class="meta-info">
-                    <i class="fa-solid fa-phone"></i> +234 800 123 4567
-                </div>
-                <button class="action-btn">View Catalogue</button>
-            </div>
-        </article>
-
-        <article class="vendor-card">
-            <div class="card-image-container">
-                <span class="badge closed"><i class="fa-solid fa-circle dot"></i> CLOSED</span>
-                <img src="https://images.unsplash.com/photo-1495446815901-a7297e633e8d?auto=format&fit=crop&w=600&q=80" alt="The Book Nook Storefront">
-            </div>
-            <div class="card-content">
-                <h2>The Book Nook</h2>
-                <div class="meta-info">
-                    <i class="fa-solid fa-location-dot"></i> Faculty Center, Ground Floor
-                </div>
-                <div class="meta-info">
-                    <i class="fa-solid fa-phone"></i> +234 800 987 6543
-                </div>
-                <button class="action-btn">View Catalogue</button>
-            </div>
-        </article>
-
-        <article class="vendor-card">
-            <div class="card-image-container">
-                <span class="badge open"><i class="fa-solid fa-circle dot"></i> OPEN</span>
-                <img src="https://images.unsplash.com/photo-1593640408182-31c70c8268f5?auto=format&fit=crop&w=600&q=80" alt="Tech Hub Repairs Storefront">
-            </div>
-            <div class="card-content">
-                <h2>Tech Hub Repairs</h2>
-                <div class="meta-info">
-                    <i class="fa-solid fa-location-dot"></i> Engineering Block, Room 42
-                </div>
-                <div class="meta-info">
-                    <i class="fa-solid fa-phone"></i> +234 800 222 3333
-                </div>
-                <button class="action-btn">View Catalogue</button>
-            </div>
-        </article>
-
-        <article class="vendor-card">
-            <div class="card-image-container">
-                <span class="badge open"><i class="fa-solid fa-circle dot"></i> OPEN</span>
-                <img src="https://images.unsplash.com/photo-1533900298318-6b8da08a523e?auto=format&fit=crop&w=600&q=80" alt="Fresh Mart Storefront">
-            </div>
-            <div class="card-content">
-                <h2>Fresh Mart</h2>
-                <div class="meta-info">
-                    <i class="fa-solid fa-location-dot"></i> North Gate Plaza
-                </div>
-                <div class="meta-info">
-                    <i class="fa-solid fa-phone"></i> +234 800 555 1212
-                </div>
-                <button class="action-btn">View Catalogue</button>
-            </div>
-        </article>
-
+    <main id="vendor-list" class="vendor-list">
+        <!-- Vendors will be loaded here dynamically -->
+        <div class="loading-placeholder">Loading vendors&hellip;</div>
     </main>
 
     <nav class="bottom-nav">
@@ -116,6 +49,7 @@
         </a>
     </nav>
 
+    <script type="module" src="scripts/vendor.js"></script>
     <script src="scripts/pwa.js" ></script>
 </body>
 </html>
