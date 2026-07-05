@@ -107,7 +107,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 	try {
 		grid.innerHTML = '<div class="loading-placeholder">Loading catalogue&hellip;</div>';
-		const res = await fetch(`${API_BASE_URL}/api/vendors/${encodeURIComponent(vendorId)}`, {
+		const res = await fetch(`${API_BASE_URL}/api/catalog/vendors/${encodeURIComponent(vendorId)}`, {
 			headers: { 'Authorization': `Bearer ${token}` }
 		});
 		if (res.status === 401) {

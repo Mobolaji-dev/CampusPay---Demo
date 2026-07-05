@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   try {
-    const res = await fetch(`${API_BASE_URL}/api/vendors`, {
+    const res = await fetch(`${API_BASE_URL}/api/catalog/vendors`, {
       headers: { 
       'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/json' }
