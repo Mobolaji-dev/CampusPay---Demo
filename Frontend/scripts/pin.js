@@ -97,7 +97,7 @@ pinButton.addEventListener("click", async (e) => {
         });
 
         if(!response.ok) {
-            throw new Error(`Error setting pin`)
+            throw new Error(`Error setting pin`);
         } else {
             console.log('PIN set successful');
             window.location.href = "profile.html";
