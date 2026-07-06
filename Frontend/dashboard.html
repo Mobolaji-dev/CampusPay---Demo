@@ -7,6 +7,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="styles/dashboard.css">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#0f172a">
+  <link rel="apple-touch-icon" href="/icons/Icon_1.png">
 </head>
 <body>
 
@@ -59,7 +62,7 @@
       <section class="status-cards">
         <div class="status-card">
           <p class="status-label">LOCKED<br>ESCROW</p>
-          <h3 id="locked-balance" class="status-amount">&#8358;------</h3>``
+          <h3 id="locked-balance" class="status-amount">&#8358;------</h3>
         </div>
         <a href="pending.html" class="status-card link-card">
           <p class="status-label">PENDING</p>
@@ -132,10 +135,10 @@
       </section>
 
       <div class="fab-wrapper">
-        <button class="fab-btn">
+        <a href="vendor.html" class="fab-btn">
           <svg viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
           Place Order
-        </button>
+        </a>
       </div>
 
     </main>
@@ -159,6 +162,7 @@
         </a>
     </nav>
 
+  <script src="scripts/pwa.js" ></script>  
   <script type="module" src="scripts/dashboard.js"></script>
 </body>
 </html>

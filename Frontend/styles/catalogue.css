@@ -106,6 +106,37 @@ body {
     border-color: #0052ff;
 }
 
+/* Vendor Header */
+.vendor-header {
+    padding: 0 16px 12px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.vendor-header-card {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    background: #fff;
+    border: 1px solid #e6e8ef;
+    padding: 12px;
+    border-radius: 10px;
+}
+.vendor-cover {
+    width: 72px;
+    height: 72px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+.vendor-info h2 {
+    margin: 0 0 6px 0;
+    font-size: 16px;
+    color: #002db3;
+}
+.vendor-info .meta-info {
+    font-size: 13px;
+    color: #444;
+}
+
 /*  Product Grid */
 .product-grid {
     display: grid;

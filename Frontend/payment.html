@@ -7,6 +7,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles/payment.css">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#0f172a">
+    <link rel="apple-touch-icon" href="/icons/Icon_1.png">
 </head>
 <body>
 
@@ -50,10 +53,12 @@
 
 
         <div class="action-buttons">
-            <button class="btn-secondary">Verify Transaction</button>
-            <button class="btn-primary">Continue</button>
+            <a href="receipt.html" class="btn-secondary">Verify Transaction</a>
+            <a href="dashboard.html" class="btn-primary">Continue</a>
         </div>
     </main>
 
+    <script src="scripts/pwa.js" ></script>
+    <script type="module" src="scripts/purchase.js"></script>
 </body>
 </html>

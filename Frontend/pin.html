@@ -2,14 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Security Setup - Set PIN</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+    <title>CampusPay - Set PIN</title>
     <link rel="stylesheet" href="styles/pin.css">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#0f172a">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="CampusPay">
+    <link rel="apple-touch-icon" href="/icons/Icon_1.png">
 </head>
 <body>
     <div class="app-container">
         <header class="header">
-            <button class="back-btn" aria-label="Go back">
+            <button class="back-btn" aria-label="Go back" onclick="window.history.back()">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                     <line x1="19" y1="12" x2="5" y2="12"></line>
                     <polyline points="12 19 5 12 12 5"></polyline>
@@ -43,21 +50,21 @@
 
         <section class="keypad-section">
             <div class="keypad-grid">
-                <button class="key">1</button>
-                <button class="key">2</button>
-                <button class="key">3</button>
+                <button class="key" type="button" data-key="1">1</button>
+                <button class="key" type="button" data-key="2">2</button>
+                <button class="key" type="button" data-key="3">3</button>
                 
-                <button class="key">4</button>
-                <button class="key">5</button>
-                <button class="key">6</button>
+                <button class="key" type="button" data-key="4">4</button>
+                <button class="key" type="button" data-key="5">5</button>
+                <button class="key" type="button" data-key="6">6</button>
                 
-                <button class="key">7</button>
-                <button class="key">8</button>
-                <button class="key">9</button>
+                <button class="key" type="button" data-key="7">7</button>
+                <button class="key" type="button" data-key="8">8</button>
+                <button class="key" type="button" data-key="9">9</button>
                 
                 <div class="key-spacer"></div>
-                <button class="key">0</button>
-                <button class="key backspace-key" aria-label="Backspace">
+                <button class="key" type="button" data-key="0">0</button>
+                <button class="key backspace-key" type="button" aria-label="Delete last digit">
                     <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#B91C1C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"></path>
                         <line x1="18" y1="9" x2="12" y2="15"></line>
@@ -67,9 +74,13 @@
             </div>
 
             <div class="action-container">
-                <button class="set-pin-btn" disabled>Set PIN</button>
+                <button id="set-pin-btn" class="set-pin-btn" type="button" disabled aria-label="Confirm PIN">Set PIN</button>
             </div>
         </section>
     </div>
+
+
+    <script src="scripts/pwa.js" ></script>
+    <script type="module" src="scripts/pin.js"></script>
 </body>
 </html>
