@@ -15,6 +15,18 @@ function currency(n) {
 	return new Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN' }).format(n);
 }
 
+function saveCheckoutItem(product, vendor) {
+	const payload = {
+		vendor_id: vendor.vendor_id,
+		vendor_name: vendor.name,
+		name: product.name,
+		description: product.description || 'Purchase from ' + vendor.name,
+		price: Number(product.price || 0),
+	};
+	window.sessionStorage.setItem('checkoutItem', JSON.stringify(payload));
+	window.location.href = 'purchase.html';
+}
+
 function createProductCard(product, vendor) {
 	const article = document.createElement('article');
 	article.className = 'product-card';
@@ -54,11 +66,7 @@ function createProductCard(product, vendor) {
 	btn.textContent = product.is_available ? 'Purchase' : 'Unavailable';
 	btn.disabled = !product.is_available;
 	btn.addEventListener('click', () => {
-		// navigate to purchase page with vendor_id & product_id
-		const url = new URL(window.location.origin + '/Frontend/purchase.html');
-		url.searchParams.set('vendor_id', vendor.vendor_id);
-		url.searchParams.set('product_id', product.product_id);
-		window.location.href = url.pathname + url.search;
+		saveCheckoutItem(product, vendor);
 	});
 	content.appendChild(btn);
 

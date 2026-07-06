@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CampusPay - Payment Successful</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/success.css">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#0f172a">
+    <link rel="apple-touch-icon" href="/icons/Icon_1.png">
+</head>
+<body>
+
+    <header class="top-header">
+        <div class="header-content">
+            <button onclick="window.history.back()" class="back-btn"><i class="fa-solid fa-arrow-left"></i></button>
+            <h1>Payment Confirmed</h1>
+            <div class="spacer"></div>
+        </div>
+    </header>
+
+    <main class="success-container">
+        <section class="hero-card">
+            <div class="hero-icon">
+                <i class="fa-solid fa-circle-check"></i>
+            </div>
+            <h2>Payment successful</h2>
+            <p>Your purchase is complete. You can verify the transaction or continue to the dashboard.</p>
+        </section>
+
+        <section class="summary-card">
+            <div class="summary-row">
+                <span>Product</span>
+                <strong id="success-product">Loading...</strong>
+            </div>
+            <div class="summary-row">
+                <span>Vendor</span>
+                <span id="success-vendor">Loading...</span>
+            </div>
+            <div class="summary-row">
+                <span>Total Charged</span>
+                <strong id="success-total">₦0</strong>
+            </div>
+            <div class="summary-row">
+                <span>Order ID</span>
+                <span id="success-order">Loading...</span>
+            </div>
+            <div class="summary-row small-note">
+                <span>Expires</span>
+                <span id="success-expiry">Loading...</span>
+            </div>
+        </section>
+
+        <div class="button-row">
+            <button id="verify-btn" class="btn-secondary">Verify Transaction</button>
+            <button id="continue-btn" class="btn-primary">Continue</button>
+        </div>
+    </main>
+
+    <script type="module" src="scripts/success.js"></script>
+    <script src="scripts/pwa.js"></script>
+
+</body>
+</html>

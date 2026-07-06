@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -21,72 +21,60 @@
         </div>
     </header>
 
-    <main class="checkout-container">
-        
-        <section class="checkout-section">
-            <h2 class="section-label">Order Summary</h2>
-            
-            <div class="summary-card">
-                <div class="product-image">
-                    <img src="https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=600&q=80" alt="Campus Hoodie">
-                </div>
-                
-                <div class="product-details">
-                    <h3 class="product-name">Campus Hoodie</h3>
-                    <p class="product-desc">High-quality campus essentials for everyday student life.</p>
-                    
-                    <div class="qty-price-row">
-                        <span class="qty-pill">Qty: 1</span>
-                        <span class="base-price">₦15,000</span>
+    <form id="checkout-form" class="checkout-form">
+        <main class="checkout-container">
+            <section class="checkout-section">
+                <h2 class="section-label">Order Summary</h2>
+                <div class="summary-card">
+                    <div class="summary-head">
+                        <div class="summary-icon">
+                            <i class="fa-solid fa-box-open"></i>
+                        </div>
+                        <div class="summary-copy">
+                            <p class="summary-label">Product</p>
+                            <h2 id="product-name">Loading product...</h2>
+                            <p id="product-desc" class="product-desc">A short description of the selected item will appear here.</p>
+                        </div>
                     </div>
 
                     <div class="divider solid"></div>
 
                     <div class="cost-row">
-                        <span class="cost-label">Subtotal</span>
-                        <span class="cost-value">₦15,000</span>
+                        <span>Base Price</span>
+                        <span id="base-price">₦0</span>
                     </div>
                     <div class="cost-row">
-                        <span class="cost-label">Service Fee (Commission)</span>
-                        <span class="cost-value">₦20</span>
+                        <span>Service Charge</span>
+                        <span>₦20</span>
                     </div>
 
                     <div class="divider dashed"></div>
-
-                    <div class="total-row">
-                        <span class="total-label">TOTAL AMOUNT</span>
-                        <span class="total-value">₦15,020</span>
+                    <div class="cost-row total-row">
+                        <span class="total-label">Total Amount</span>
+                        <span id="total-price" class="total-value">₦0</span>
                     </div>
                 </div>
-            </div>
-        </section>
+                <p id="order-context" class="order-context"></p>
+            </section>
 
-        <section class="checkout-section">
-            <h2 class="section-label">Security Verification</h2>
-            <p class="security-instructions">Enter your 4-digit Transaction PIN to authorize this payment.</p>
-            
-            <div class="pin-input-container">
-                <input type="password" maxlength="1" class="pin-box" aria-label="PIN digit 1">
-                <input type="password" maxlength="1" class="pin-box" aria-label="PIN digit 2">
-                <input type="password" maxlength="1" class="pin-box" aria-label="PIN digit 3">
-                <input type="password" maxlength="1" class="pin-box" aria-label="PIN digit 4">
-            </div>
+            <section class="checkout-section">
+                <h2 class="section-label">Security Verification</h2>
+                <p class="security-instructions">Enter your 4-digit Transaction PIN to authorize this payment.</p>
+                <div class="form-group">
+                    <label for="transaction-pin">Transaction PIN</label>
+                    <input id="transaction-pin" name="pin" type="password" inputmode="numeric" pattern="\d{4}" maxlength="4" autocomplete="one-time-code" placeholder="••••" required>
+                </div>
+                <p id="checkout-error" class="field-error"></p>
+            </section>
 
-            <a href="#" class="forgot-pin">Forgot PIN?</a>
-        </section>
-
-    </main>
-
-    <div class="bottom-action-bar">
-        <div class="action-content">
-            <button class="btn-purchase">
-                <i class="fa-solid fa-lock"></i> Purchase
+            <button type="submit" id="confirm-payment" class="btn-confirm">
+                <i class="fa-solid fa-lock"></i> Confirm Payment
             </button>
-            <p class="secure-badge">Securely processed by CampusPay</p>
-        </div>
-    </div>
+        </main>
+    </form>
 
-    <script src="scripts/pwa.js" ></script>
+    <script type="module" src="scripts/purchase.js"></script>
+    <script src="scripts/pwa.js"></script>
 
 </body>
 </html>

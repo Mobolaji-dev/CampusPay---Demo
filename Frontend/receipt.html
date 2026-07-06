@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -16,24 +16,24 @@
   <div class="app-container">
     
     <header class="top-nav">
-      <button onclick="window.history.back()" class="icon-btn back-btn">
+      <button onclick="window.history.back()" class="icon-btn back-btn" aria-label="Go back">
         <svg viewBox="0 0 24 24" fill="none" stroke="#0047FF" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
       </button>
       <h1 class="page-title">Receipt</h1>
-      <button class="text-btn cancel-btn">Cancel</button>
+      <button id="cancel-button" class="text-btn cancel-btn" type="button">Cancel</button>
     </header>
 
     <main class="content">
-      
       <div class="status-container">
         <div class="status-badge">
-          <span class="status-dot"></span> PENDING
+          <span class="status-dot"></span>
+          <span id="receipt-status">PENDING</span>
         </div>
       </div>
 
       <section class="qr-card">
         <div class="qr-wrapper">
-          <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=Placeholder" alt="QR Code" class="qr-img">
+          <img id="qr-code" src="" alt="QR Code" class="qr-img">
         </div>
         <h2 class="qr-title">SCAN TO VERIFY</h2>
         <p class="qr-desc">Show this code to the merchant to confirm delivery.</p>
@@ -42,15 +42,22 @@
       <section class="details-section">
         <div class="detail-row">
           <p class="label">ITEM DESCRIPTION</p>
-          <p class="value bold-value">MacBook Air M2 (Escrow Payment)</p>
+          <p id="receipt-item" class="value bold-value">Loading...</p>
         </div>
-        
+
         <hr class="divider">
-        
+
+        <div class="detail-row">
+          <p class="label">VENDOR ID</p>
+          <p id="receipt-vendor" class="value dark-value">Loading...</p>
+        </div>
+
+        <hr class="divider">
+
         <div class="detail-row flex-row">
           <div>
-            <p class="label">ITEM AMOUNT</p>
-            <p class="value amount-value">&#8358;450,000</p>
+            <p class="label">FINAL AMOUNT</p>
+            <p id="receipt-amount" class="value amount-value">Loading...</p>
           </div>
           <div class="lock-icon">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="#71717A">
@@ -64,58 +71,57 @@
       </section>
 
       <section class="info-section">
-        
         <div class="timer-card">
           <div class="timer-left">
             <svg class="hourglass-icon" viewBox="0 0 24 24" fill="none" stroke="#0047FF" stroke-width="2">
               <path d="M4 4h16c-.5 2.5-2 5-6 8 4 3 5.5 5.5 6 8H4c.5-2.5 2-5 6-8-4-3-5.5-5.5-6-8z"></path>
             </svg>
             <div>
-              <p class="label">EXPIRING IN</p>
-              <p class="value highlight-time">23:53:13</p>
+              <p class="label">EXPIRES AT</p>
+              <p id="receipt-expiry" class="value highlight-time">Loading...</p>
             </div>
           </div>
           <div class="timer-right">
-            <p class="label">EST. DATE</p>
-            <p class="value dark-value">Oct 24, 2023</p>
+            <p class="label">ORDER ID</p>
+            <p id="receipt-order" class="value dark-value">Loading...</p>
           </div>
         </div>
 
         <div class="row-cards">
           <div class="small-card">
-            <p class="label">TXN ID</p>
-            <p class="value dark-value">ESC-8923-X92L</p>
+            <p class="label">VENDOR NAME</p>
+            <p id="receipt-vendor-name" class="value dark-value">Loading...</p>
           </div>
           <div class="small-card">
-            <p class="label">METHOD</p>
-            <p class="value dark-value">Wallet Balance</p>
+            <p class="label">PAYMENT METHOD</p>
+            <p class="value dark-value">Wallet / PIN</p>
           </div>
         </div>
       </section>
 
     </main>
 
-        <nav class="bottom-nav">
-        <a href="dashboard.html" class="nav-item">
-            <i class="fa-solid fa-house"></i>
-            <span>Home</span>
-        </a>
-        <a href="vendor.html" class="nav-item">
-            <i class="fa-solid fa-bag-shopping"></i>
-            <span>Catalogue</span>
-        </a>
-        <a href="transactions.html" class="nav-item active">
-            <i class="fa-solid fa-receipt"></i>
-            <span>Transactions</span>
-        </a>
-        <a href="profile.html" class="nav-item">
-            <i class="fa-regular fa-user"></i>
-            <span>Profile</span>
-        </a>
+    <nav class="bottom-nav">
+      <a href="dashboard.html" class="nav-item">
+          <i class="fa-solid fa-house"></i>
+          <span>Home</span>
+      </a>
+      <a href="vendor.html" class="nav-item">
+          <i class="fa-solid fa-bag-shopping"></i>
+          <span>Catalogue</span>
+      </a>
+      <a href="transactions.html" class="nav-item active">
+          <i class="fa-solid fa-receipt"></i>
+          <span>Transactions</span>
+      </a>
+      <a href="profile.html" class="nav-item">
+          <i class="fa-regular fa-user"></i>
+          <span>Profile</span>
+      </a>
     </nav>
   </div>
-  </div>
 
-  <script src="scripts/pwa.js" ></script>
+  <script type="module" src="scripts/receipt.js"></script>
+  <script src="scripts/pwa.js"></script>
 </body>
 </html>
