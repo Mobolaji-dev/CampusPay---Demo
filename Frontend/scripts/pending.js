@@ -76,12 +76,8 @@ function createOrderCard(order) {
   statusBadge.className = 'status-badge';
   statusBadge.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 8v4l3 3"></path></svg>${order.status?.toUpperCase() || 'PENDING'}`;
 
-  const qrToken = document.createElement('div');
-  qrToken.className = 'qr-token';
-  qrToken.innerHTML = `<span>QR Token</span><span>${order.qr_token || 'N/A'}</span>`;
 
   statusRow.appendChild(statusBadge);
-  statusRow.appendChild(qrToken);
 
   content.appendChild(header);
   content.appendChild(description);
