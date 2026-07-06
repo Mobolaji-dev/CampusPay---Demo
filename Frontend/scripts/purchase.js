@@ -31,7 +31,7 @@ function renderCheckout(item) {
   const totalPrice = document.getElementById('total-price');
   const orderContext = document.getElementById('order-context');
 
-  const totalAmount = Number(item.price || 0) + 20;
+  const totalAmount = Number(item.price || 0);
   productName.textContent = item.name || 'Unknown product';
   productDesc.textContent = item.description || 'No description available.';
   basePrice.textContent = formatCurrency(item.price);
