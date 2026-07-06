@@ -34,3 +34,16 @@ class PlaceOrderResponse(BaseModel):
 
 class ScanQRRequest(BaseModel):
     qr_token: str
+
+
+class PendingTransactionItem(BaseModel):
+    order_id: str
+    name: str
+    price: str
+    description: str | None = None
+    location: str | None = None
+    image_url: str | None = None
+    status: str = "pending"
+    qr_token: str
+    created_at: str
+

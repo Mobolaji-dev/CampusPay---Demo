@@ -13,7 +13,7 @@ from app.core.config import settings
 from app.core.database import get_db
 from app.core.security import get_current_firebase_user
 from app.models.models import users, wallets, orders, orderstat
-from app.schemas.orders import PlaceOrderRequest, PlaceOrderResponse, ScanQRRequest
+from app.schemas.orders import PlaceOrderRequest, PlaceOrderResponse, ScanQRRequest, PendingTransactionItem
 from app.services.nomba import transfer_to_bank
 
 logger = logging.getLogger(__name__)
@@ -264,4 +264,113 @@ async def scan_order_qr(
         "amount_paid_to_vendor": str(order.item_amount),
         "nomba_transfer_ref": nomba_ref,
     }
+
+
+@router.get("/pending", response_model=list[PendingTransactionItem])
+async def get_pending_transactions(
+    firebase_user: dict = Depends(get_current_firebase_user),
+    db: AsyncSession = Depends(get_db),
+):
+    try:
+        firebase_uid = firebase_user.get("uid")
+        if not firebase_uid:
+            raise HTTPException(status_code=401, detail="Invalid Firebase token")
+
+        # Fetch current user
+        user_result = await db.execute(
+            select(users).where(users.firebase_uid == firebase_uid)
+        )
+        user = user_result.scalar_one_or_none()
+        if not user:
+            raise HTTPException(status_code=404, detail="User not found")
+
+        from sqlalchemy.orm import aliased
+        from app.models.models import products as ProductsModel
+        from app.models.models import approles
+
+        vendor_alias = aliased(users)
+        student_alias = aliased(users)
+
+        if user.role == approles.Student:
+            stmt = (
+                select(
+                    orders.order_id,
+                    orders.item_description.label("name"),
+                    orders.item_amount.label("price"),
+                    ProductsModel.description.label("description"),
+                    vendor_alias.vendor_location.label("location"),
+                    vendor_alias.vendor_cover_image_url.label("image_url"),
+                    orders.qr_token,
+                    orders.created_at
+                )
+                .join(vendor_alias, vendor_alias.user_id == orders.vendor_id)
+                .outerjoin(
+                    ProductsModel,
+                    (ProductsModel.vendor_id == orders.vendor_id) & 
+                    (ProductsModel.name == orders.item_description)
+                )
+                .where(
+                    orders.student_id == user.user_id,
+                    orders.order_status == orderstat.pending
+                )
+                .order_by(orders.created_at.desc())
+            )
+        elif user.role == approles.Vendor:
+            stmt = (
+                select(
+                    orders.order_id,
+                    orders.item_description.label("name"),
+                    orders.item_amount.label("price"),
+                    ProductsModel.description.label("description"),
+                    student_alias.vendor_location.label("location"),
+                    student_alias.vendor_cover_image_url.label("image_url"),
+                    orders.qr_token,
+                    orders.created_at
+                )
+                .join(student_alias, student_alias.user_id == orders.student_id)
+                .outerjoin(
+                    ProductsModel,
+                    (ProductsModel.vendor_id == orders.vendor_id) & 
+                    (ProductsModel.name == orders.item_description)
+                )
+                .where(
+                    orders.vendor_id == user.user_id,
+                    orders.order_status == orderstat.pending
+                )
+                .order_by(orders.created_at.desc())
+            )
+        else:
+            return []
+
+        result = await db.execute(stmt)
+        rows = result.fetchall()
+
+        items = []
+        for row in rows:
+            created_at_utc = row.created_at
+            if created_at_utc.tzinfo is None:
+                created_at_utc = created_at_utc.replace(tzinfo=timezone.utc)
+            created_at_str = created_at_utc.isoformat().replace("+00:00", "Z")
+
+            items.append(
+                PendingTransactionItem(
+                    order_id=row.order_id,
+                    name=row.name,
+                    price=str(row.price),
+                    description=row.description,
+                    location=row.location,
+                    image_url=row.image_url,
+                    status="pending",
+                    qr_token=row.qr_token,
+                    created_at=created_at_str
+                )
+            )
+        return items
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.exception(e)
+        raise HTTPException(status_code=500, detail="Internal server error")
+
 
