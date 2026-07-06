@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CampusPay — Vendor Profile</title>
+  <meta name="description" content="Manage your payout bank account and vendor profile settings on CampusPay.">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="styles/vendor-profile.css">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#0f172a">
+  <link rel="apple-touch-icon" href="/icons/Icon_1.png">
+</head>
+<body>
+  <div class="app-container">
+
+    <!-- Header -->
+    <header class="top-nav">
+      <div>
+        <p class="nav-subtitle">VENDOR PORTAL</p>
+        <h1 class="brand-logo">Profile</h1>
+      </div>
+      <span id="vendor-name-tag" class="vendor-tag"></span>
+    </header>
+
+    <main class="content">
+
+      <!-- Identity Card -->
+      <section class="identity-card">
+        <div class="avatar-circle" id="avatar-initials">V</div>
+        <div class="identity-info">
+          <h2 id="profile-name" class="identity-name">—</h2>
+          <p id="profile-email" class="identity-email">—</p>
+          <span class="role-badge"><i class="fa-solid fa-store"></i> Vendor</span>
+        </div>
+      </section>
+
+      <!-- Payout Account Card -->
+      <section class="section-card">
+        <div class="section-header">
+          <h2 class="section-title">
+            <i class="fa-solid fa-building-columns section-icon"></i>
+            Payout Account
+          </h2>
+          <span id="account-status-badge" class="status-badge not-set">Not Set</span>
+        </div>
+
+        <!-- Current account summary (shown when set) -->
+        <div id="current-account-display" class="current-account hidden">
+          <div class="account-row">
+            <span class="account-label">Bank</span>
+            <span id="display-bank-name" class="account-value">—</span>
+          </div>
+          <div class="account-row">
+            <span class="account-label">Account Number</span>
+            <span id="display-account-number" class="account-value masked">—</span>
+          </div>
+          <div class="account-row">
+            <span class="account-label">Account Name</span>
+            <span id="display-account-name" class="account-value">—</span>
+          </div>
+        </div>
+
+        <p id="no-account-hint" class="hint-text">
+          Set up your bank account so you can receive payments after a student scans your QR code.
+        </p>
+      </section>
+
+      <!-- Bank Setup Form -->
+      <section class="section-card">
+        <h2 class="section-title">
+          <i class="fa-solid fa-pen-to-square section-icon"></i>
+          <span id="form-section-title">Set Up Bank Account</span>
+        </h2>
+
+        <form id="bank-form" novalidate>
+
+          <!-- Bank Selector -->
+          <div class="input-group">
+            <label for="bank-search">Bank</label>
+            <div class="bank-select-wrapper">
+              <input
+                type="text"
+                id="bank-search"
+                class="form-input"
+                placeholder="Type to search bank…"
+                autocomplete="off"
+              >
+              <i class="fa-solid fa-chevron-down select-chevron"></i>
+              <div id="bank-dropdown" class="bank-dropdown hidden" role="listbox" aria-label="Bank list">
+                <!-- populated by JS -->
+              </div>
+            </div>
+            <input type="hidden" id="selected-bank-code">
+            <input type="hidden" id="selected-bank-name">
+          </div>
+
+          <!-- Account Number -->
+          <div class="input-group">
+            <label for="account-number">Account Number</label>
+            <div class="input-with-action">
+              <input
+                type="tel"
+                id="account-number"
+                class="form-input"
+                placeholder="10-digit account number"
+                maxlength="10"
+                inputmode="numeric"
+              >
+              <button type="button" id="verify-btn" class="verify-inline-btn" disabled>
+                <span class="btn-text">Verify</span>
+                <span class="spinner"></span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Resolved Account Name -->
+          <div id="account-name-group" class="input-group hidden">
+            <label for="resolved-account-name">Account Name</label>
+            <div class="resolved-name-box">
+              <i class="fa-solid fa-circle-check resolved-icon"></i>
+              <span id="resolved-account-name">—</span>
+            </div>
+          </div>
+
+          <!-- Error -->
+          <div id="form-error" class="form-error hidden"></div>
+
+          <!-- Save -->
+          <button type="submit" id="save-btn" class="save-btn" disabled>
+            <i class="fa-solid fa-floppy-disk"></i>
+            <span class="btn-text">Save Account</span>
+            <span class="spinner"></span>
+          </button>
+
+        </form>
+      </section>
+
+      <!-- Security -->
+      <section class="section-card">
+        <h2 class="section-title">
+          <i class="fa-solid fa-shield-halved section-icon"></i>
+          Security
+        </h2>
+        <a href="pin.html" class="menu-item">
+          <div class="menu-left">
+            <span class="menu-text">Set / Change Transaction PIN</span>
+          </div>
+          <i class="fa-solid fa-chevron-right menu-chevron"></i>
+        </a>
+      </section>
+
+      <!-- Logout -->
+      <button id="logout-btn" class="logout-btn">
+        <i class="fa-solid fa-right-from-bracket"></i>
+        Log Out
+      </button>
+
+    </main>
+
+    <!-- Bottom Nav -->
+    <nav class="bottom-nav">
+      <a href="vendor-dashboard.html" class="nav-item" id="nav-orders">
+        <i class="fa-solid fa-clock-rotate-left"></i>
+        <span>Orders</span>
+      </a>
+      <a href="vendor-products.html" class="nav-item" id="nav-products">
+        <i class="fa-solid fa-box-open"></i>
+        <span>Products</span>
+      </a>
+      <a href="vendor-profile.html" class="nav-item active" id="nav-profile">
+        <i class="fa-regular fa-user"></i>
+        <span>Profile</span>
+      </a>
+    </nav>
+
+  </div>
+
+  <!-- Toast -->
+  <div id="toast" class="toast hidden" role="alert" aria-live="polite"></div>
+
+  <script src="scripts/pwa.js"></script>
+  <script type="module" src="scripts/vendor-profile.js"></script>
+</body>
+</html>

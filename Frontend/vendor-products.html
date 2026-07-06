@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CampusPay — My Products</title>
+  <meta name="description" content="Manage your product catalogue on CampusPay vendor portal.">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="styles/vendor-products.css">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#0f172a">
+  <link rel="apple-touch-icon" href="/icons/Icon_1.png">
+</head>
+<body>
+  <div class="app-container">
+
+    <!-- Header -->
+    <header class="top-nav">
+      <div>
+        <p class="nav-subtitle">VENDOR PORTAL</p>
+        <h1 class="page-title">My Products</h1>
+      </div>
+      <span id="product-count-tag" class="count-tag"></span>
+    </header>
+
+    <main class="content">
+
+      <!-- Add Product Form -->
+      <section class="add-form-card" id="add-form-section">
+        <h2 class="form-title">Add New Product</h2>
+        <form id="add-product-form" class="product-form" novalidate>
+          <div class="form-row">
+            <div class="input-group">
+              <label for="new-name">Product Name</label>
+              <input type="text" id="new-name" placeholder="e.g. Lecture Note (12 in 1)" required>
+            </div>
+            <div class="input-group">
+              <label for="new-price">Price (₦)</label>
+              <input type="number" id="new-price" placeholder="e.g. 30" min="1" step="0.01" required>
+            </div>
+          </div>
+          <div class="input-group">
+            <label for="new-description">Description <span class="optional">(optional)</span></label>
+            <input type="text" id="new-description" placeholder="Short description…">
+          </div>
+          <button type="submit" class="add-btn" id="add-btn">
+            <i class="fa-solid fa-plus"></i>
+            <span class="btn-text">Add Product</span>
+            <span class="spinner"></span>
+          </button>
+        </form>
+        <div id="form-error" class="form-error hidden"></div>
+      </section>
+
+      <!-- Product List -->
+      <section class="products-section">
+        <div class="section-header">
+          <h2 class="section-title">Your Catalogue</h2>
+        </div>
+        <div id="products-list" class="products-list">
+          <div class="loading-state">Loading products…</div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Bottom Nav -->
+    <nav class="bottom-nav">
+      <a href="vendor-dashboard.html" class="nav-item">
+        <i class="fa-solid fa-clock-rotate-left"></i>
+        <span>Orders</span>
+      </a>
+      <a href="vendor-products.html" class="nav-item active">
+        <i class="fa-solid fa-box-open"></i>
+        <span>Products</span>
+      </a>
+      <a href="vendor-profile.html" class="nav-item">
+        <i class="fa-regular fa-user"></i>
+        <span>Profile</span>
+      </a>
+    </nav>
+
+  </div>
+
+  <!-- Edit Modal -->
+  <div id="edit-modal" class="modal-overlay" role="dialog" aria-modal="true">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h2 class="modal-title">Edit Product</h2>
+        <button id="close-edit-btn" class="close-btn" aria-label="Close">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <form id="edit-product-form" class="product-form" novalidate>
+        <div class="input-group">
+          <label for="edit-name">Name</label>
+          <input type="text" id="edit-name" required>
+        </div>
+        <div class="input-group">
+          <label for="edit-price">Price (₦)</label>
+          <input type="number" id="edit-price" min="1" step="0.01" required>
+        </div>
+        <div class="input-group">
+          <label for="edit-description">Description</label>
+          <input type="text" id="edit-description">
+        </div>
+        <div class="input-group toggle-group">
+          <label class="toggle-label">
+            <span>Available</span>
+            <input type="checkbox" id="edit-available">
+            <span class="toggle-track"></span>
+          </label>
+        </div>
+        <button type="submit" class="save-btn" id="save-btn">
+          <span class="btn-text">Save Changes</span>
+          <span class="spinner"></span>
+        </button>
+      </form>
+      <div id="edit-error" class="form-error hidden"></div>
+    </div>
+  </div>
+
+  <!-- Delete Confirm Modal -->
+  <div id="delete-modal" class="modal-overlay" role="dialog" aria-modal="true">
+    <div class="modal-card confirm-card">
+      <div class="confirm-icon"><i class="fa-solid fa-trash-can"></i></div>
+      <h2 class="modal-title">Delete Product?</h2>
+      <p id="delete-product-name" class="confirm-text"></p>
+      <p class="confirm-sub">This action cannot be undone.</p>
+      <div class="confirm-actions">
+        <button id="cancel-delete-btn" class="cancel-btn">Cancel</button>
+        <button id="confirm-delete-btn" class="delete-confirm-btn">
+          <span class="btn-text">Delete</span>
+          <span class="spinner"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast" class="toast hidden" role="alert" aria-live="polite"></div>
+
+  <script type="module" src="scripts/vendor-products.js"></script>
+  <script src="scripts/pwa.js"></script>
+</body>
+</html>
