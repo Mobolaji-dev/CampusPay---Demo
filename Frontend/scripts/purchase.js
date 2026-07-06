@@ -65,7 +65,7 @@ async function submitPayment(event) {
   const payload = {
     vendor_id: item.vendor_id,
     item_description: item.name,
-    item_amount: totalAmount,
+    item_amount: item.price,
     pin,
   };
 
