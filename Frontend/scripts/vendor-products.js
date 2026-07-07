@@ -1,5 +1,6 @@
 import { getToken } from './auth.js';
-import { getStorage, ref as storageRef, uploadBytesResumable, getDownloadURL } from 'https://www.gstatic.com/firebasejs/12.15.0/firebase-storage.js';
+import { firestore } from './firebaseAuth.js';
+import { collection, addDoc, doc, getDoc } from 'https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js';
 
 const API_BASE_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
   ? 'http://localhost:8000'
@@ -151,8 +152,9 @@ function createProductRow(product) {
 
   const isAvail = product.is_available;
 
+  const isFirestoreImage = typeof product.image_url === 'string' && product.image_url.startsWith('firestore://');
   const thumbnailHtml = product.image_url
-    ? `<div class="product-thumb"><img src="${escAttr(product.image_url)}" alt="${escAttr(product.name)}"></div>`
+    ? `<div class="product-thumb"><img ${isFirestoreImage ? `data-firestore-ref="${escAttr(product.image_url)}"` : `src="${escAttr(product.image_url)}"`} alt="${escAttr(product.name)}"></div>`
     : `<div class="product-thumb fallback">No Image</div>`;
 
   row.innerHTML = `
@@ -177,6 +179,15 @@ function createProductRow(product) {
 
   row.querySelector('.edit-btn').addEventListener('click', () => openEditModal(product));
   row.querySelector('.delete-btn').addEventListener('click', () => openDeleteModal(product));
+
+  if (isFirestoreImage) {
+    const imgEl = row.querySelector('img');
+    if (imgEl) {
+      loadFirestoreImage(product.image_url, imgEl).catch(err => {
+        console.error('Failed to load Firestore image', err);
+      });
+    }
+  }
 
   return row;
 }
@@ -298,10 +309,19 @@ function validateImageFile(file) {
   if (!allowed.includes(file.type)) {
     return 'Please choose a PNG, JPG, or WEBP image.';
   }
-  if (file.size > 5 * 1024 * 1024) {
-    return 'Image must be smaller than 5 MB.';
+  if (file.size > 1 * 1024 * 1024) {
+    return 'Image must be smaller than 1 MB when using Firestore.';
   }
   return null;
+}
+
+function readFileAsDataURL(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = () => reject(new Error('Failed to read file'));
+    reader.readAsDataURL(file);
+  });
 }
 
 function showImagePreview(container, file) {
@@ -323,24 +343,41 @@ function resetEditImageSelection() {
   editImageInput.value = '';
 }
 
-async function uploadProductImage(file) {
-  const storage = getStorage();
-  const safeFileName = file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
-  const ownerId = vendorId || localStorage.getItem('uid') || 'anonymous';
-  const path = `vendor-products/${ownerId}/${Date.now()}-${safeFileName}`;
-  const ref = storageRef(storage, path);
-  const uploadTask = uploadBytesResumable(ref, file);
+async function loadFirestoreImage(firestoreUrl, imgEl) {
+  const [collectionName, docId] = firestoreUrl.replace('firestore://', '').split('/');
+  if (!collectionName || !docId) {
+    throw new Error('Invalid Firestore image URL');
+  }
+  const docRef = doc(firestore, collectionName, docId);
+  const snapshot = await getDoc(docRef);
+  if (!snapshot.exists()) {
+    throw new Error('Firestore image document does not exist');
+  }
+  const data = snapshot.data();
+  if (!data || !data.contentType || !data.base64) {
+    throw new Error('Invalid Firestore image document');
+  }
+  imgEl.src = `data:${data.contentType};base64,${data.base64}`;
+}
 
-  return new Promise((resolve, reject) => {
-    uploadTask.on('state_changed', null, reject, async () => {
-      try {
-        const url = await getDownloadURL(uploadTask.snapshot.ref);
-        resolve(url);
-      } catch (err) {
-        reject(err);
-      }
-    });
+async function uploadProductImage(file) {
+  const dataUrl = await readFileAsDataURL(file);
+  const matches = dataUrl.match(/^data:(.+);base64,(.+)$/);
+  if (!matches) {
+    throw new Error('Unable to parse selected image');
+  }
+  const contentType = matches[1];
+  const base64 = matches[2];
+  const ownerId = vendorId || localStorage.getItem('uid') || 'anonymous';
+  const docRef = await addDoc(collection(firestore, 'product_images'), {
+    ownerId,
+    filename: file.name,
+    contentType,
+    base64,
+    createdAt: new Date(),
   });
+
+  return `firestore://product_images/${docRef.id}`;
 }
 
 async function handleSaveEdit(e) {
