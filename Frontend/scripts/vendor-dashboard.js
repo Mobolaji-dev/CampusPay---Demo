@@ -263,7 +263,7 @@ function openScanner(orderId) {
           showScanStatus('Camera unavailable. Use the manual input below.', 'error');
         });
     });
-}
+}}
 
 function closeScanner() {
   stopCamera();

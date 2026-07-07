@@ -196,8 +196,10 @@ async def scan_order_qr(
                             )
 
     # ── PHASE 1: Release escrow + mark confirmed — commit before Nomba ─
-    # locked_balance decreases; available_balance stays the same (money left the system)
+    # locked_balance decreases by the full hold; the ₦20 platform-fee deposit
+    # is returned to the student since pickup completed on time
     wallet.locked_balance -= order.escrow_hold
+    wallet.available_balance += PLATFORM_FEE
     wallet.updated_at = datetime.now(timezone.utc)
     order.order_status = orderstat.confirmed
 
@@ -210,11 +212,12 @@ async def scan_order_qr(
 
     logger.info(
         f"Escrow released: order={order_id}, student={order.student_id}, "
-        f"vendor={vendor.user_id}, escrow_hold={order.escrow_hold}"
+        f"vendor={vendor.user_id}, escrow_hold={order.escrow_hold}, "
+        f"platform_fee_refunded={PLATFORM_FEE}"
     )
 
     # ── PHASE 2: Call Nomba transfer — AFTER DB commit ─────────────────
-    # Only item_amount goes to vendor; platform fee stays with CampusPay
+    # Only item_amount goes to vendor; platform fee was returned to student above
     nomba_ref = None
     try:
         nomba_result = await transfer_to_bank(
@@ -258,6 +261,7 @@ async def scan_order_qr(
         "message": "Order confirmed",
         "order_id": order_id,
         "amount_paid_to_vendor": str(order.item_amount),
+        "platform_fee_refunded": str(PLATFORM_FEE),
         "nomba_transfer_ref": nomba_ref,
     }
 
