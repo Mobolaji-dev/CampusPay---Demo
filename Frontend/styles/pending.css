@@ -231,6 +231,41 @@ body {
   height: 14px;
 }
 
+.action-row {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.receipt-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: #0047ff;
+  color: #ffffff;
+  border: none;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.receipt-btn:hover {
+  background: #0035cc;
+}
+
+.receipt-btn:active {
+  transform: scale(0.98);
+}
+
+.receipt-btn svg {
+  width: 14px;
+  height: 14px;
+}
+
 .qr-token {
   display: flex;
   flex-direction: column;
