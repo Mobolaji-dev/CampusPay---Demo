@@ -1,4 +1,4 @@
-const CACHE_NAME = 'campuspay-v1.2.4';
+const CACHE_NAME = 'campuspay-v1.2.5';
 const PRECACHE_URLS = [
   '/', '/index.html', '/signup.html', '/dashboard.html', '/vendor.html', '/catalogue.html', '/purchase.html','/success.html','/pending.html','/profile.html','/pin.html', '/receipt.html', '/transactions.html', '/vendor-dashboard.html', '/vendor-products.html', '/vendor-profile.html',
 
@@ -8,7 +8,7 @@ const PRECACHE_URLS = [
   '/styles/profile.css', '/styles/pin.css', '/styles/receipt.css', '/styles/vendor-dashboard.css', '/styles/vendor-products.css', '/styles/vendor-profile.css', '/styles/transactions.css',
 
   '/scripts/index.js', '/scripts/signup.js', '/scripts/dashboard.js',
-  '/scripts/profile.js', '/scripts/pin.js', '/scripts/auth.js', '/scripts/firebaseAuth.js', '/scripts/transactions.js', '/scripts/pending.js', '/scripts/vendor.js', '/scripts/catalogue.js', '/scripts/success.js', '/scripts/receipt.js', '/scripts/purchase.js' , '/scripts/vendor-dashboard.css', '/scripts/vendor-products.css', '/scripts/vendor-profile.css', '/scripts/pwa.js',
+  '/scripts/profile.js', '/scripts/pin.js', '/scripts/auth.js', '/scripts/firebaseAuth.js', '/scripts/transactions.js', '/scripts/pending.js', '/scripts/vendor.js', '/scripts/catalogue.js', '/scripts/success.js', '/scripts/receipt.js', '/scripts/purchase.js' , '/scripts/vendor-dashboard.js', '/scripts/vendor-products.js', '/scripts/vendor-profile.js', '/scripts/pwa.js',
 
   '/manifest.json',
   '/icons/Icon_1.png', '/icons/Icon_2.png' , '/icons/Icon_3.png'
