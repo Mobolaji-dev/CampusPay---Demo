@@ -72,13 +72,26 @@ function createOrderCard(order) {
   statusBadge.className = 'status-badge';
   statusBadge.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 8v4l3 3"></path></svg>${order.status?.toUpperCase() || 'PENDING'}`;
 
-
   statusRow.appendChild(statusBadge);
+
+  const actionRow = document.createElement('div');
+  actionRow.className = 'action-row';
+
+  const receiptBtn = document.createElement('button');
+  receiptBtn.className = 'receipt-btn';
+  receiptBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="12" y1="11" x2="12" y2="17"></line><line x1="9" y1="14" x2="15" y2="14"></line></svg>View Receipt';
+  receiptBtn.addEventListener('click', () => {
+    window.sessionStorage.setItem('latestOrder', JSON.stringify(order));
+    window.location.href = 'receipt.html';
+  });
+
+  actionRow.appendChild(receiptBtn);
 
   content.appendChild(header);
   content.appendChild(description);
   content.appendChild(metaRow);
   content.appendChild(statusRow);
+  content.appendChild(actionRow);
 
   card.appendChild(media);
   card.appendChild(content);
