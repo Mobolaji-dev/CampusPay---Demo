@@ -215,7 +215,11 @@ function openScanner(orderId) {
 
   const config = {
     fps: 10,
-    qrbox: { width: 220, height: 220 },
+    qrbox: (viewfinderWidth, viewfinderHeight) => {
+      const minEdge = Math.min(viewfinderWidth, viewfinderHeight);
+      const boxSize = Math.floor(minEdge * 0.7);
+      return { width: boxSize, height: boxSize };
+    },
     videoConstraints: {
       facingMode: { ideal: 'environment' },
       width: { ideal: 1280 },
@@ -223,43 +227,35 @@ function openScanner(orderId) {
     },
   };
 
+  const onScanSuccess = (decodedText) => {
+    if (!scannerActive) return;
+    scannerActive = false;
+    stopCamera();
+    handleScan(decodedText);
+  };
+
+  const onScanFailure = (errorMessage) => {
+    console.log('scan miss:', errorMessage); 
+
   html5QrCode
-    .start(
-      { facingMode: 'environment' },
-      config,
-      (decodedText) => {
-        if (!scannerActive) return;
-        scannerActive = false;
-        stopCamera();
-        handleScan(decodedText);
-      },
-      () => {} // per-frame scan noise, ignore
-    )
+    .start({ facingMode: 'environment' }, config, onScanSuccess, onScanFailure)
     .then(() => {
       scannerActive = true;
+      try {
+        console.log('Active camera settings:', html5QrCode.getRunningTrackSettings());
+      } catch {}
     })
     .catch((err) => {
       console.error('html5-qrcode start (facingMode) failed:', err);
-      // Fallback: enumerate devices explicitly (helps on desktops/odd browsers)
       Html5Qrcode.getCameras()
         .then((cameras) => {
           if (!cameras || cameras.length === 0) {
             showScanStatus('No camera found. Use the manual input below.', 'error');
             return;
           }
-          const cameraId = cameras[0].id; // just use first available as fallback
+          const cameraId = cameras[0].id;
           return html5QrCode
-            .start(
-              cameraId,
-              config,
-              (decodedText) => {
-                if (!scannerActive) return;
-                scannerActive = false;
-                stopCamera();
-                handleScan(decodedText);
-              },
-              () => {}
-            )
+            .start(cameraId, config, onScanSuccess, onScanFailure)
             .then(() => { scannerActive = true; });
         })
         .catch((err2) => {

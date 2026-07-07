@@ -206,12 +206,13 @@ class orders(Base):
     )
 
     nomba_transfer_ref: Mapped[str | None] = mapped_column(String)
+    penalty_status: Mapped[str | None] = mapped_column(String, nullable=True)
+    penalty_transfer_ref: Mapped[str | None] = mapped_column(String, nullable=True)
 
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True),
         default=lambda: datetime.now(timezone.utc),
     )
-
 
 class products(Base):
 

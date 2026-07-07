@@ -10,7 +10,10 @@ from sqlalchemy import select
 from app.api import auth, catalog, webhooks, wallet, profile, orders
 from app.core.database import Base, engine, sessionLocal
 from app.models.models import orders as Orders, wallets, orderstat
-from app.models import models  
+from app.models import models 
+from datetime import datetime, timezone
+from decimal import Decimal     
+from app.services.nomba import transfer_to_bank 
 
 logger = logging.getLogger(__name__)
 
