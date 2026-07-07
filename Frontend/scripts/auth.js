@@ -60,10 +60,8 @@ export const API_BASE_URL = (() => {
       ? `http://${hostname}:8000`
       : 'http://localhost:8000';
   }
-  if (hostname === 'campuspay-3f39.onrender.com') {
     return 'https://campuspay-3f39.onrender.com';
-  }
-  return 'https://campuspay.pxxl.run';
+  
 })();
 
 async function syncWithBackend(token, uid, fullName = null, role = null, phoneNo) {

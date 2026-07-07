@@ -1,13 +1,8 @@
 import { auth } from './firebaseAuth.js';
-import { getToken } from './auth.js';
+import { getToken, API_BASE_URL } from './auth.js';
 import { signOut } from 'https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js';
 
 
-const API_BASE_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-  ? 'http://localhost:8000'
-  : window.location.hostname === 'campuspay-3f39.onrender.com'
-  ? 'https://campuspay-3f39.onrender.com'
-  : 'https://campuspay.pxxl.run';
 
 
 // ── State ─────────────────────────────────────────────────────────────────────
