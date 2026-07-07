@@ -5,6 +5,53 @@ let currentOrderId = null;
 let html5QrCode = null;
 let scannerActive = false;
 let refreshInterval = null;
+let _videoObserver = null;   // MutationObserver for iOS PWA camera fix
+
+// ── iOS PWA Camera Fix ───────────────────────────────────────────────────────
+// On iOS in standalone (home screen) mode, WebKit requires the <video> element
+// injected by html5-qrcode to have `playsinline` + `autoplay` + `muted` set
+// synchronously before the stream is played. Without this the preview is black.
+// We use a MutationObserver to patch the video the instant it is inserted.
+function isIOSPWA() {
+  const ios = /iP(ad|hone|od)/i.test(navigator.userAgent);
+  const standalone = window.navigator.standalone === true;
+  return ios && standalone;
+}
+
+function patchVideoForIOS(container) {
+  if (!isIOSPWA()) return null;
+
+  const applyAttrs = (video) => {
+    video.setAttribute('playsinline', '');
+    video.setAttribute('webkit-playsinline', '');
+    video.setAttribute('autoplay', '');
+    video.setAttribute('muted', '');
+    video.muted = true;
+    // Force re-play in case the stream already started before we patched it
+    if (video.srcObject && video.paused) {
+      video.play().catch(() => {});
+    }
+  };
+
+  // Patch any video already present (unlikely but safe)
+  container.querySelectorAll('video').forEach(applyAttrs);
+
+  // Watch for the video element the library will inject
+  const observer = new MutationObserver((mutations) => {
+    mutations.forEach((m) => {
+      m.addedNodes.forEach((node) => {
+        if (node.nodeName === 'VIDEO') {
+          applyAttrs(node);
+        } else if (node.querySelectorAll) {
+          node.querySelectorAll('video').forEach(applyAttrs);
+        }
+      });
+    });
+  });
+
+  observer.observe(container, { childList: true, subtree: true });
+  return observer;
+}
 
 // ── DOM refs ─────────────────────────────────────────────────────────────────
 const ordersList     = document.getElementById('orders-list');
@@ -224,6 +271,16 @@ async function openScanner(orderId) {
     aspectRatio: 1.0
   };
 
+  // Attach iOS PWA camera patch BEFORE starting the scanner
+  if (_videoObserver) { _videoObserver.disconnect(); _videoObserver = null; }
+  _videoObserver = patchVideoForIOS(qrReader);
+
+  // iOS standalone needs explicit video constraints with facingMode as string (not object)
+  // to avoid a WebKit bug that causes getUserMedia to fail silently on some iOS versions.
+  const cameraConstraints = isIOSPWA()
+    ? { facingMode: { exact: 'environment' } }
+    : { facingMode: 'environment' };
+
   const onScanSuccess = async (decodedText) => {
     if (!scannerActive) return;
     scannerActive = false;
@@ -236,18 +293,18 @@ async function openScanner(orderId) {
 
   try {
     await html5QrCode.start(
-      { facingMode: "environment" },
+      cameraConstraints,
       config,
       onScanSuccess,
       onScanFailure
     );
     scannerActive = true;
   } catch (err) {
-    console.error(err);
+    console.error('Primary camera start failed:', err);
     try {
       const cameras = await Html5Qrcode.getCameras();
       if (!cameras.length) {
-        throw new Error("No camera");
+        throw new Error('No camera');
       }
       await html5QrCode.start(
         cameras[0].id,
@@ -258,12 +315,18 @@ async function openScanner(orderId) {
       scannerActive = true;
     } catch (e) {
       console.error(e);
-      showScanStatus("Unable to access camera. Use manual QR entry.", "error");
+      showScanStatus('Unable to access camera. Use manual QR entry.', 'error');
     }
   }
 }
 
 async function stopCamera() {
+  // Disconnect the iOS video observer first
+  if (_videoObserver) {
+    _videoObserver.disconnect();
+    _videoObserver = null;
+  }
+
   if (!html5QrCode) return;
 
   try {
@@ -277,7 +340,7 @@ async function stopCamera() {
 
   scannerActive = false;
   html5QrCode = null;
-  qrReader.innerHTML = "";
+  qrReader.innerHTML = '';
 }
 
 async function closeScanner() {
