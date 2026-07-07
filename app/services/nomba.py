@@ -119,7 +119,7 @@ async def transfer_to_bank(amount:Decimal,
         method="POST",
         endpoint=url,
         payload = {
-            "amount":int(amount * 100),
+            "amount":int(amount),
             "accountNumber": account_number,
             "accountName": account_name,
             "bankCode": bank_code,
