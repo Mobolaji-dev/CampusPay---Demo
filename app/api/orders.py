@@ -15,7 +15,7 @@ from app.models.models import approles
 from app.core.config import settings
 from app.core.database import get_db
 from app.core.security import get_current_firebase_user
-from app.models.models import users, wallets, orders, orderstat, wallet_ledger
+from app.models.models import users, wallets, orders, orderstat, wallet_ledger ,payoutstat
 from app.schemas.orders import PlaceOrderRequest, PlaceOrderResponse, ScanQRRequest, PendingTransactionItem, VendorPendingOrderItem
 from app.services.nomba import transfer_to_bank, lookup_account, verify_transfer_status
 
@@ -309,8 +309,11 @@ async def scan_order_qr(
         },
     )
 
-    # ── PHASE 2: Nomba transfer — AFTER DB commit ─────────────────────────
+# ── PHASE 2: Nomba transfer — AFTER DB commit ─────────────────────────
     nomba_ref = None
+    payout_status = payoutstat.failed
+    payout_error = None
+
     try:
         nomba_result = await transfer_to_bank(
             amount=order.item_amount,
@@ -324,6 +327,7 @@ async def scan_order_qr(
 
         if nomba_result.get("code") == "00":
             nomba_ref = nomba_result.get("data", {}).get("transferRef") or order_id
+            payout_status = payoutstat.success
             logger.info(
                 "nomba_transfer_success",
                 extra={
@@ -335,6 +339,7 @@ async def scan_order_qr(
                 },
             )
         else:
+            payout_error = str(nomba_result)
             logger.error(
                 "[ACTION REQUIRED] nomba_transfer_failed",
                 extra={
@@ -342,28 +347,31 @@ async def scan_order_qr(
                     "vendor_id": vendor.user_id,
                     "amount": str(order.item_amount),
                     "merchantTxRef": order_id,
-                    "nomba_response": str(nomba_result),
+                    "nomba_response": payout_error,
                 },
             )
 
     except Exception as e:
+        payout_error = str(e)
         logger.error(
             "[ACTION REQUIRED] nomba_transfer_exception",
             extra={
                 "order_id": order_id,
                 "vendor_id": vendor.user_id,
                 "amount": str(order.item_amount),
-                "error": str(e),
+                "error": payout_error,
             },
         )
 
-    # ── PHASE 3: Store Nomba transfer ref (best-effort) ───────────────────
-    if nomba_ref:
-        try:
-            order.nomba_transfer_ref = nomba_ref
-            await db.commit()
-        except Exception as e:
-            logger.error("save_nomba_ref_failed order_id=%s error=%s", order_id, e)
+    # ── PHASE 3: Always append the payout outcome, success or failure ─────
+    try:
+        order.nomba_transfer_ref = nomba_ref
+        order.payout_status = payout_status
+        order.payout_last_error = payout_error
+        order.payout_attempts = (order.payout_attempts or 0) + 1
+        await db.commit()
+    except Exception as e:
+        logger.error("save_payout_result_failed order_id=%s error=%s", order_id, e)
 
     return {
         "message": "Order confirmed",
@@ -371,9 +379,8 @@ async def scan_order_qr(
         "amount_paid_to_vendor": str(order.item_amount),
         "platform_fee_refunded": str(PLATFORM_FEE),
         "nomba_transfer_ref": nomba_ref,
+        "payout_status": payout_status.value,
     }
-
-
 
 @router.get("/{order_id}/transfer-status")
 async def get_transfer_status(

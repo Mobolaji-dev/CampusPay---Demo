@@ -6,7 +6,7 @@ from decimal import Decimal
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 
-from app.models.models import orders, orderstat
+from app.models.models import orders, orderstat, payoutstat
 from app.services.nomba import verify_transfer_status
 
 logger = logging.getLogger(__name__)
@@ -70,24 +70,24 @@ async def run_reconciliation(db: AsyncSession, lookback_hours: int = 48) -> Reco
     )
 
     for order in confirmed_orders:
-        
-        if not order.nomba_transfer_ref:
-            issue = ReconIssue(
+
+        if order.payout_status in (payoutstat.not_attempted, payoutstat.failed):
+            logger.error(
+                "[RECON][CRITICAL] payout_incomplete order_id=%s vendor_id=%s amount=%s status=%s attempts=%s",
+                order.order_id, order.vendor_id, order.item_amount,
+                order.payout_status.value, order.payout_attempts,
+            )
+            report.add(ReconIssue(
                 order_id=order.order_id,
-                issue="Confirmed order has no Nomba transfer reference — vendor may not have been paid",
+                issue=f"Payout not confirmed — status={order.payout_status.value}, attempts={order.payout_attempts}",
                 severity="critical",
                 amount=str(order.item_amount),
                 vendor_id=order.vendor_id,
-                nomba_transfer_ref=None,
-            )
-            report.add(issue)
-            logger.error(
-                "[RECON][CRITICAL] missing_transfer_ref order_id=%s vendor_id=%s amount=%s",
-                order.order_id, order.vendor_id, order.item_amount,
-            )
-            continue  
+                nomba_transfer_ref=order.nomba_transfer_ref,
+            ))
+            continue
 
-      
+    
         try:
             nomba_status = await verify_transfer_status(order.nomba_transfer_ref)
             nomba_code = nomba_status.get("code")
