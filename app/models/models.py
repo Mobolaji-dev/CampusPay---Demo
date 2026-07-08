@@ -23,6 +23,12 @@ class approles(Enum):
     Admin = "Admin"
 
 
+class payoutstat(Enum):
+    not_attempted = "not_attempted"
+    success = "success"
+    failed = "failed"
+    
+
 class accstatus(Enum):
     active = "Active"
     suspended = "Suspended"
@@ -208,6 +214,15 @@ class orders(Base):
     nomba_transfer_ref: Mapped[str | None] = mapped_column(String)
     penalty_status: Mapped[str | None] = mapped_column(String, nullable=True)
     penalty_transfer_ref: Mapped[str | None] = mapped_column(String, nullable=True)
+    
+    payout_status: Mapped[payoutstat] = mapped_column(
+        SAEnum(payoutstat, name="payoutstat"),
+        default=payoutstat.not_attempted,
+        server_default=payoutstat.not_attempted.value,
+        nullable=False,
+    )
+    payout_last_error: Mapped[str | None] = mapped_column(Text, nullable=True)
+    payout_attempts: Mapped[int] = mapped_column(Integer, default=0, server_default="0", nullable=False)
 
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True),
