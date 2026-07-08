@@ -35,9 +35,9 @@ def upgrade() -> None:
     op.execute("""
         UPDATE "order"
         SET payout_status = CASE
-            WHEN nomba_transfer_ref IS NOT NULL THEN 'success'
-            WHEN order_status = 'Confirmed' THEN 'failed'
-            ELSE 'not_attempted'
+            WHEN nomba_transfer_ref IS NOT NULL THEN 'success'::payoutstat
+            WHEN order_status = 'confirmed' THEN 'failed'::payoutstat
+            ELSE 'not_attempted'::payoutstat
         END
     """)
 
